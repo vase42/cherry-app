@@ -1033,3 +1033,30 @@ kbd {
 .modal pre.notes { white-space: pre-wrap; font: 12.5px/1.6 var(--sans); color: var(--muted);
                    background: var(--bg); border: 1px solid var(--line-soft); border-radius: var(--r-s);
                    padding: 12px; max-height: 50vh; overflow: auto; }
+
+/* the updates window */
+.upd { text-align: left; }
+.upd-icon { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center;
+            background: var(--surface-2); margin-bottom: 12px; font: 700 20px var(--sans); }
+.upd-icon .ic { width: 22px; height: 22px; stroke-width: 2.2; }
+.upd-icon.ok { background: color-mix(in srgb, var(--ok) 16%, transparent); color: var(--ok); }
+.upd-icon.warn { background: color-mix(in srgb, var(--warn) 16%, transparent); color: var(--warn); }
+.upd-head { display: flex; gap: 14px; align-items: center; margin-bottom: 14px; }
+.upd-head h3 { margin: 0; }
+.upd-head .sub { margin: 2px 0 0; }
+.upd-kicker { font: 600 11px var(--mono); color: var(--accent); text-transform: uppercase; letter-spacing: .05em; }
+.upd-notes { background: var(--bg); border: 1px solid var(--line-soft); border-radius: var(--r-s);
+             padding: 12px 14px; max-height: 42vh; overflow: auto; font-size: 13px; color: var(--muted); line-height: 1.55; }
+.upd-notes p { margin: 0 0 8px; } .upd-notes p:last-child { margin: 0; }
+.upd-notes ul { margin: 0 0 8px; padding-left: 18px; } .upd-notes li { margin: 3px 0; }
+.upd-notes h5 { margin: 10px 0 4px; font-size: 12.5px; color: var(--ink); }
+.upd-steps { list-style: none; padding: 0; margin: 10px 0 12px; display: flex; flex-direction: column; gap: 6px; }
+.upd-steps li { display: flex; align-items: center; gap: 9px; color: var(--dim); font-size: 13.5px; }
+.upd-steps li::before { content: ""; width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid var(--line); flex: none; }
+.upd-steps li.now { color: var(--ink); font-weight: 600; }
+.upd-steps li.now::before { border-color: var(--accent); background: var(--accent); }
+.upd-steps li.done { color: var(--muted); }
+.upd-steps li.done::before { border-color: var(--ok); background: var(--ok); }
+.upd-btn { gap: 6px; }
+.upd-btn.has-new { color: var(--accent); }
+.upd-btn.has-new::after { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }

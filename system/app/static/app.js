@@ -529,9 +529,12 @@ async function tick() {
 
 /* ═════════════════════════════════════════════ updates
  *
- * The home screen asks GitHub (through the server, cached an hour) whether a
- * newer Cherry is out. One click downloads it, replaces the program files -
- * never sessions, keys or Output - and Cherry restarts itself.
+ * "Check for updates" (home screen, top right) asks GitHub through the server
+ * and answers in one window: a new version with what changed and an Update now
+ * button, or "you're up to date". Updating happens in the same window - it
+ * downloads, replaces the program files (never sessions, keys or Output),
+ * Cherry restarts itself, and the page reloads on the new version.
+ * The home screen also shows a banner on its own when a new version is out.
  */
 async function checkUpdate(force = false) {
   try {
@@ -539,48 +542,128 @@ async function checkUpdate(force = false) {
     S.update = u;
     const box = $('#update');
     $('#ver').textContent = u.current ? 'v' + u.current : '';
+    $('[data-act="check-update"]')?.classList.toggle('has-new', !!(u.newer && !u.dev));
     if (!u.newer || u.dev) { box.hidden = true; return u; }
-    const first = (u.notes || '').split('\n').map((l) => l.replace(/^[-*#\s]+/, '')).find(Boolean) || '';
     box.hidden = false;
-    box.innerHTML = `<div><b>Cherry ${esc(u.latest)} is ready</b>
-        <span>${first ? esc(first) : 'A new version is available.'}</span></div>
-      <button class="btn" data-act="update-notes">What's new</button>
-      <button class="btn primary" data-act="update-now">Update now</button>`;
+    box.innerHTML = `<div><b>Cherry ${esc(u.latest)} is out</b>
+        <span>You have ${esc(u.current)}. See what's new and update in one click.</span></div>
+      <button class="btn primary" data-act="check-update">See update</button>`;
     return u;
   } catch { return null; }
 }
 
-function updateNotes() {
-  const u = S.update || {};
-  modal(`<h3>Cherry ${esc(u.latest || '')}</h3>
-    <p class="sub">You have ${esc(u.current || '')}.</p>
-    <pre class="notes">${esc(u.notes || 'No notes for this version.')}</pre>
-    <div class="actions"><button class="btn" data-close>Close</button>
-      <button class="btn primary" data-act="update-now">Update now</button></div>`);
+/* Release notes as written on GitHub: "- " lines become a list, the rest
+   paragraphs. Escaped first, so nothing in them can run. */
+function notesHtml(text) {
+  const lines = String(text || '').split('\n').map((l) => l.trim());
+  let html = '', list = false;
+  for (const l of lines) {
+    const item = /^[-*•]\s+/.test(l);
+    if (item && !list) { html += '<ul>'; list = true; }
+    if (!item && list) { html += '</ul>'; list = false; }
+    if (!l) continue;
+    const t = esc(l.replace(/^[-*•]\s+/, '').replace(/^#+\s*/, ''));
+    html += item ? '<li>' + t + '</li>' : (/^#/.test(l) ? '<h5>' + t + '</h5>' : '<p>' + t + '</p>');
+  }
+  return html + (list ? '</ul>' : '');
 }
 
-async function updateNow() {
-  const u = S.update || {};
-  $$('.scrim').forEach((x) => x.close());
-  const m = modal(`<h3>Updating to ${esc(u.latest || 'the new version')}…</h3>
-    <p class="sub" id="up-msg">Downloading. Your sessions, keys and Output folder are not touched.</p>`);
-  try {
-    const r = await api('/api/update/apply', {});
-    $('#up-msg', m).textContent = 'Installed. Cherry is restarting…';
-    // Wait for the restarted server to answer with the new version, then reload.
+function openUpdates() {
+  const m = modal(`<div class="upd" id="upd"></div>`);
+  const box = $('#upd', m);
+  const show = (html) => { box.innerHTML = html; };
+
+  const checking = () => show(`
+    <div class="upd-icon"><i class="spin big"></i></div>
+    <h3>Checking for updates…</h3>
+    <p class="sub">Asking GitHub for the newest Cherry.</p>`);
+
+  const render = (u) => {
+    if (!u || u.error) {
+      return show(`
+        <div class="upd-icon warn">!</div>
+        <h3>Couldn't check right now</h3>
+        <p class="sub">${esc((u && u.error) || 'No answer from GitHub.')} You have Cherry ${esc((u && u.current) || S.version || '')}.</p>
+        <div class="actions"><button class="btn" data-close>Close</button>
+          <button class="btn primary" data-upd="again">Try again</button></div>`);
+    }
+    if (!u.newer) {
+      return show(`
+        <div class="upd-icon ok"><svg class="ic" viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-7"/></svg></div>
+        <h3>You're up to date</h3>
+        <p class="sub">Cherry ${esc(u.current)} is the newest version.</p>
+        <div class="actions"><button class="btn primary" data-close>Done</button></div>`);
+    }
+    show(`
+      <div class="upd-head">
+        <img src="/img/cherry-64.png" alt="" width="44" height="44">
+        <div><span class="upd-kicker">New version</span><h3>Cherry ${esc(u.latest)} is out</h3>
+          <p class="sub">You have ${esc(u.current)}.</p></div>
+      </div>
+      <div class="upd-notes">${notesHtml(u.notes) || '<p>No notes for this version.</p>'}</div>
+      ${u.dev ? `<p class="note">This copy is the development folder (it has git), so it doesn't update itself —
+        pull the changes with git instead.</p>` : `<p class="note">Your sessions, keys, characters and the Output folder stay exactly as they are.</p>`}
+      <div class="actions">
+        ${u.page ? `<a class="btn quiet" href="${esc(u.page)}" target="_blank" rel="noreferrer">On GitHub</a><span class="sp"></span>` : ''}
+        <button class="btn" data-close>Later</button>
+        ${u.dev ? '' : '<button class="btn primary" data-upd="go">Update now</button>'}
+      </div>`);
+  };
+
+  const steps = (n, msg) => show(`
+    <div class="upd-icon"><i class="spin big"></i></div>
+    <h3>Updating to Cherry ${esc(S.update.latest)}</h3>
+    <ol class="upd-steps">
+      ${['Downloading', 'Installing', 'Restarting Cherry'].map((t, i) =>
+        `<li class="${i < n ? 'done' : i === n ? 'now' : ''}">${t}</li>`).join('')}
+    </ol>
+    <p class="sub">${esc(msg)}</p>`);
+
+  const go = async () => {
+    steps(0, 'Fetching the new version from GitHub…');
+    let r;
+    try {
+      r = await api('/api/update/apply', {});
+    } catch (e) {
+      return show(`
+        <div class="upd-icon warn">!</div>
+        <h3>The update didn't go through</h3>
+        <p class="sub">${esc(e.message)} Nothing was changed.</p>
+        <div class="actions"><button class="btn" data-close>Close</button>
+          <button class="btn primary" data-upd="go">Try again</button></div>`);
+    }
+    steps(2, 'Installed. Cherry is starting again — this page reloads by itself.');
     const until = Date.now() + 60000;
     while (Date.now() < until) {
       await new Promise((ok) => setTimeout(ok, 1200));
       try {
         const st = await api('/api/state');
-        if (st.version === r.version) { location.reload(); return; }
+        if (st.version === r.version) {
+          show(`
+            <div class="upd-icon ok"><svg class="ic" viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-7"/></svg></div>
+            <h3>Updated to Cherry ${esc(r.version)}</h3>
+            <p class="sub">Reloading…</p>`);
+          setTimeout(() => location.reload(), 900);
+          return;
+        }
       } catch { /* still restarting */ }
     }
-    $('#up-msg', m).textContent = 'Installed. If Cherry did not come back by itself, close its black window and start it again.';
-  } catch (e) {
-    m.close();
-    toast(e.message, 'bad');
-  }
+    show(`
+      <div class="upd-icon warn">!</div>
+      <h3>Installed — but Cherry didn't come back</h3>
+      <p class="sub">Close Cherry's black window and start it again; you'll be on ${esc(r.version)}.</p>
+      <div class="actions"><button class="btn primary" data-close>OK</button></div>`);
+  };
+
+  box.addEventListener('click', async (e) => {
+    const b = e.target.closest('[data-upd]');
+    if (!b) return;
+    if (b.dataset.upd === 'go') return go();
+    checking();
+    render(await checkUpdate(true));
+  });
+  checking();
+  checkUpdate(true).then(render);
 }
 
 function renderHome() {
@@ -2369,8 +2452,7 @@ document.addEventListener('click', async (e) => {
           return;
         }
         case 'settings':      return openSettings();
-        case 'update-now':    return updateNow();
-        case 'update-notes':  return updateNotes();
+        case 'check-update':  return openUpdates();
         case 'engine':        return openEngineDialog(el.dataset.kind, el);
         case 'pick-engine': {
           const kind = el.dataset.kind;
