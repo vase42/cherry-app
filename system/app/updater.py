@@ -54,7 +54,11 @@ def check(force=False):
     failed check (offline, rate limited) is reported, never raised."""
     with _lock:
         if not force and _cache["data"] and time.time() - _cache["at"] < 3600:
-            return dict(_cache["data"], current=current_version())
+            # The release is cached, the comparison is not: the installed
+            # version can change under a running server (an update, a reset).
+            d = dict(_cache["data"], current=current_version())
+            d["newer"] = bool(d.get("asset")) and _vt(d.get("latest") or "0") > _vt(d["current"])
+            return d
     cur = current_version()
     out = {"current": cur, "latest": None, "newer": False, "notes": "", "page": None,
            "dev": is_dev_copy(), "error": None}

@@ -1657,6 +1657,11 @@ check("a git checkout refuses to update itself", dev_refused)
 shutil.rmtree(os.path.join(db.ROOT, ".git"), ignore_errors=True)
 status, r = http("GET", "/api/state")
 check("the state reports the version", "version" in r)
+updater._cache.update(at=time.time(), data={"latest": "2.0.0", "asset": "https://x/Cherry.zip",
+                                            "newer": False, "notes": "", "dev": False})
+check("a cached check is re-compared with the installed version",
+      updater.check()["newer"] is (updater._vt("2.0.0") > updater._vt(updater.current_version())))
+updater._cache.update(at=0, data=None)
 
 
 # ============================================================ report
