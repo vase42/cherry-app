@@ -1,0 +1,682 @@
+{
+  "_meta": {
+    "researched_on": "2026-10-09",
+    "sources_note": "Fetched via the .md.txt / .md markdown exports of the doc pages. platform.openai.com returned HTTP 403; OpenAI docs now live at developers.openai.com/api/... and that is what was read."
+  },
+  "gemini_image": {
+    "endpoint": "POST https://generativelanguage.googleapis.com/v1beta/models/<id>:generateContent  (header x-goog-api-key). NOTE: the image-generation guide now shows ONLY the Interactions API (POST /v1beta/interactions); generateContent still exists and its API reference still documents generationConfig.imageConfig.",
+    "request_example": {
+      "contents": [
+        {
+          "parts": [
+            {
+              "text": "Put the product from the reference photo on a marble table"
+            },
+            {
+              "inlineData": {
+                "mimeType": "image/png",
+                "data": "<BASE64>"
+              }
+            }
+          ]
+        }
+      ],
+      "generationConfig": {
+        "responseModalities": [
+          "IMAGE"
+        ],
+        "imageConfig": {
+          "aspectRatio": "16:9",
+          "imageSize": "2K"
+        }
+      }
+    },
+    "request_example_note": "Assembled from the generateContent API reference schema (GenerationConfig.responseModalities enum TEXT/IMAGE/VIDEO/AUDIO/DOCUMENT; ImageConfig{aspectRatio, imageSize}; Part.inlineData = Blob{mimeType,data}). The guide no longer has a generateContent image example. REST JSON uses camelCase (inlineData/mimeType); the docs' older examples also used inline_data/mime_type (proto JSON accepts both).",
+    "interactions_alternative": {
+      "endpoint": "POST https://generativelanguage.googleapis.com/v1beta/interactions",
+      "request_example": {
+        "model": "gemini-nano-banana-2.1",
+        "input": [
+          {
+            "type": "text",
+            "text": "An office group photo of these people, they are making funny faces."
+          },
+          {
+            "type": "image",
+            "mime_type": "image/png",
+            "data": "<BASE64_DATA_IMG_1>"
+          },
+          {
+            "type": "image",
+            "mime_type": "image/png",
+            "data": "<BASE64_DATA_IMG_2>"
+          }
+        ],
+        "response_format": {
+          "type": "image",
+          "aspect_ratio": "5:4",
+          "image_size": "2K"
+        }
+      },
+      "response_path": "steps[] where type=='model_output' -> content[] where type=='image' -> .data (base64). (SDK convenience: interaction.output_image.data). response_format may also be an array e.g. [{\"type\":\"text\"},{\"type\":\"image\"}] to get both.",
+      "notes": "Exact copy of the guide's REST example (multi-reference). Multi-turn via previous_interaction_id."
+    },
+    "models": [
+      {
+        "id": "gemini-nano-banana-2.1",
+        "label": "Nano Banana 2.1",
+        "aspect_values": [
+          "1:1",
+          "1:4",
+          "4:1",
+          "1:8",
+          "8:1",
+          "2:3",
+          "3:2",
+          "3:4",
+          "4:3",
+          "4:5",
+          "5:4",
+          "9:16",
+          "16:9",
+          "21:9"
+        ],
+        "size_or_resolution_values": [
+          "1K",
+          "2K",
+          "4K"
+        ],
+        "duration_values": null,
+        "duration_type": null,
+        "supports_reference_images": true,
+        "max_reference_images": 14,
+        "notes": "Released 2026-10-06; recommended default. Up to 10 object images + 4 character images. No 512px."
+      },
+      {
+        "id": "gemini-3.1-flash-image",
+        "label": "Nano Banana 2",
+        "aspect_values": [
+          "1:1",
+          "1:4",
+          "4:1",
+          "1:8",
+          "8:1",
+          "2:3",
+          "3:2",
+          "3:4",
+          "4:3",
+          "4:5",
+          "5:4",
+          "9:16",
+          "16:9",
+          "21:9"
+        ],
+        "size_or_resolution_values": [
+          "512",
+          "1K",
+          "2K",
+          "4K"
+        ],
+        "duration_values": null,
+        "duration_type": null,
+        "supports_reference_images": true,
+        "max_reference_images": 14,
+        "notes": "Stable; deprecation announced, replacement gemini-nano-banana-2.1 (no shutdown date listed). 10 objects + 4 characters. API reference spells the small size '512'; the guide says '512px'."
+      },
+      {
+        "id": "gemini-3.1-flash-lite-image",
+        "label": "Nano Banana 2 Lite",
+        "aspect_values": [
+          "1:1",
+          "2:3",
+          "3:2",
+          "3:4",
+          "4:3",
+          "4:5",
+          "5:4",
+          "9:16",
+          "16:9",
+          "21:9"
+        ],
+        "size_or_resolution_values": [
+          "1K"
+        ],
+        "duration_values": null,
+        "duration_type": null,
+        "supports_reference_images": true,
+        "max_reference_images": 14,
+        "notes": "1K only; no Google Search grounding; 'not optimized for multiple reference inputs'."
+      },
+      {
+        "id": "gemini-3-pro-image",
+        "label": "Nano Banana Pro",
+        "aspect_values": [
+          "1:1",
+          "2:3",
+          "3:2",
+          "3:4",
+          "4:3",
+          "4:5",
+          "5:4",
+          "9:16",
+          "16:9",
+          "21:9"
+        ],
+        "size_or_resolution_values": [
+          "1K",
+          "2K",
+          "4K"
+        ],
+        "duration_values": null,
+        "duration_type": null,
+        "supports_reference_images": true,
+        "max_reference_images": 14,
+        "notes": "GA id. 6 object + 5 character + 3 style refs (14 total). gemini-3-pro-image-preview was SHUT DOWN 2026-06-25 -> use gemini-3-pro-image."
+      },
+      {
+        "id": "gemini-2.5-flash-image",
+        "label": "Nano Banana (legacy)",
+        "aspect_values": [
+          "1:1",
+          "2:3",
+          "3:2",
+          "3:4",
+          "4:3",
+          "4:5",
+          "5:4",
+          "9:16",
+          "16:9",
+          "21:9"
+        ],
+        "size_or_resolution_values": [],
+        "duration_values": null,
+        "duration_type": null,
+        "supports_reference_images": true,
+        "max_reference_images": 3,
+        "notes": "Fixed ~1K output per aspect (e.g. 1344x768 for 16:9); no imageSize. 'works best with up to 3 images'. Shutdown 2027-03-15, replacement gemini-3.1-flash-lite-image."
+      }
+    ],
+    "response_path": "candidates[0].content.parts[] -> first part having inlineData -> inlineData.data (base64), inlineData.mimeType. Text parts may also appear unless responseModalities is ['IMAGE'].",
+    "poll": "None - synchronous.",
+    "download": "None - image is inline base64.",
+    "doc_url": "https://ai.google.dev/gemini-api/docs/image-generation ; https://ai.google.dev/api/generate-content#ImageConfig ; https://ai.google.dev/gemini-api/docs/deprecations"
+  },
+  "imagen": {
+    "endpoint": "POST https://generativelanguage.googleapis.com/v1beta/models/<id>:predict  -- SHUT DOWN",
+    "request_example": {},
+    "models": [
+      {
+        "id": "imagen-4.0-generate-001",
+        "label": "Imagen 4",
+        "aspect_values": [],
+        "size_or_resolution_values": [],
+        "duration_values": null,
+        "duration_type": null,
+        "supports_reference_images": false,
+        "max_reference_images": 0,
+        "notes": "Shut down 2026-08-17; replacement gemini-nano-banana-2.1"
+      },
+      {
+        "id": "imagen-4.0-ultra-generate-001",
+        "label": "Imagen 4 Ultra",
+        "aspect_values": [],
+        "size_or_resolution_values": [],
+        "duration_values": null,
+        "duration_type": null,
+        "supports_reference_images": false,
+        "max_reference_images": 0,
+        "notes": "Shut down 2026-08-17"
+      },
+      {
+        "id": "imagen-4.0-fast-generate-001",
+        "label": "Imagen 4 Fast",
+        "aspect_values": [],
+        "size_or_resolution_values": [],
+        "duration_values": null,
+        "duration_type": null,
+        "supports_reference_images": false,
+        "max_reference_images": 0,
+        "notes": "Shut down 2026-08-17"
+      }
+    ],
+    "response_path": "N/A (docs page no longer documents :predict body/response; it only says 'Imagen models are shut down. Use Nano Banana for image generation.')",
+    "poll": "N/A",
+    "download": "N/A",
+    "doc_url": "https://ai.google.dev/gemini-api/docs/imagen ; https://ai.google.dev/gemini-api/docs/deprecations#imagen-models"
+  },
+  "veo": {
+    "endpoint": "POST https://generativelanguage.googleapis.com/v1beta/models/<id>:predictLongRunning (header x-goog-api-key)",
+    "request_example": {
+      "instances": [
+        {
+          "prompt": "Slow dolly-in on the subject, soft wind in the hair",
+          "image": {
+            "inlineData": {
+              "mimeType": "image/png",
+              "data": "<BASE64>"
+            }
+          }
+        }
+      ],
+      "parameters": {
+        "aspectRatio": "16:9",
+        "durationSeconds": "8",
+        "resolution": "720p",
+        "personGeneration": "allow_adult"
+      }
+    },
+    "request_example_note": "Image shape copied from the docs' first/last-frame REST example (instances[0].image = {inlineData:{mimeType,data}}; optional lastFrame same shape; referenceImages = [{image:{inlineData:{...}}, referenceType:'asset'}] up to 3). The docs show no bytesBase64Encoded form. parameters keys from the parameters table; the docs' REST example shows 'parameters': {'resolution': '4k'}. durationSeconds is listed as a string (\"4\",\"6\",\"8\").",
+    "models": [
+      {
+        "id": "veo-3.1-generate-preview",
+        "label": "Veo 3.1",
+        "aspect_values": [
+          "16:9",
+          "9:16"
+        ],
+        "size_or_resolution_values": [
+          "720p",
+          "1080p",
+          "4k"
+        ],
+        "duration_values": [
+          "4",
+          "6",
+          "8"
+        ],
+        "duration_type": "string",
+        "supports_reference_images": true,
+        "max_reference_images": 3,
+        "notes": "1080p/4k and referenceImages require 8s. personGeneration image-to-video: 'allow_adult' only (text-to-video 'allow_all' only). Supports lastFrame, video extension (720p only). SHUTDOWN 2026-10-22 -> gemini-omni-1.1-flash."
+      },
+      {
+        "id": "veo-3.1-fast-generate-preview",
+        "label": "Veo 3.1 Fast",
+        "aspect_values": [
+          "16:9",
+          "9:16"
+        ],
+        "size_or_resolution_values": [
+          "720p",
+          "1080p",
+          "4k"
+        ],
+        "duration_values": [
+          "4",
+          "6",
+          "8"
+        ],
+        "duration_type": "string",
+        "supports_reference_images": true,
+        "max_reference_images": 3,
+        "notes": "Same params as Veo 3.1. SHUTDOWN 2026-10-22 -> gemini-omni-1.1-flash."
+      },
+      {
+        "id": "veo-3.1-lite-generate-preview",
+        "label": "Veo 3.1 Lite",
+        "aspect_values": [
+          "16:9",
+          "9:16"
+        ],
+        "size_or_resolution_values": [
+          "720p",
+          "1080p"
+        ],
+        "duration_values": [
+          "4",
+          "6",
+          "8"
+        ],
+        "duration_type": "string",
+        "supports_reference_images": false,
+        "max_reference_images": 0,
+        "notes": "No 4k, no extension, no referenceImages. 1080p requires 8s. SHUTDOWN 2026-10-22."
+      },
+      {
+        "id": "veo-3.0-generate-001",
+        "label": "Veo 3",
+        "aspect_values": [
+          "16:9",
+          "9:16"
+        ],
+        "size_or_resolution_values": [
+          "720p",
+          "1080p"
+        ],
+        "duration_values": [
+          "8"
+        ],
+        "duration_type": "string",
+        "supports_reference_images": false,
+        "max_reference_images": 0,
+        "notes": "ALREADY SHUT DOWN 2026-06-30. (Docs table is internally inconsistent: params table says 4/6/8 and 4k, features table says 8s and 720p/1080p 16:9 only.)"
+      },
+      {
+        "id": "veo-3.0-fast-generate-001",
+        "label": "Veo 3 Fast",
+        "aspect_values": [
+          "16:9",
+          "9:16"
+        ],
+        "size_or_resolution_values": [
+          "720p",
+          "1080p"
+        ],
+        "duration_values": [
+          "8"
+        ],
+        "duration_type": "string",
+        "supports_reference_images": false,
+        "max_reference_images": 0,
+        "notes": "ALREADY SHUT DOWN 2026-06-30."
+      },
+      {
+        "id": "veo-2.0-generate-001",
+        "label": "Veo 2",
+        "aspect_values": [],
+        "size_or_resolution_values": [],
+        "duration_values": [],
+        "duration_type": null,
+        "supports_reference_images": false,
+        "max_reference_images": 0,
+        "notes": "ALREADY SHUT DOWN 2026-06-30; no longer documented."
+      }
+    ],
+    "response_path": "When GET operation returns done==true: response.generateVideoResponse.generatedSamples[0].video.uri",
+    "poll": "GET https://generativelanguage.googleapis.com/v1beta/<operation name> with header x-goog-api-key (name returned in the POST response .name, e.g. models/veo-.../operations/xyz). Loop until .done == true (docs poll every 10s). Latency 11s to 6 min.",
+    "download": "GET <video.uri> with header x-goog-api-key and FOLLOW REDIRECTS (docs: curl -L -H 'x-goog-api-key: $GEMINI_API_KEY' \"${video_uri}\"). Key goes in header, not appended to URL. Videos are deleted from server after 2 days.",
+    "successor_gemini_omni_flash": {
+      "id": "gemini-omni-1.1-flash",
+      "endpoint": "POST https://generativelanguage.googleapis.com/v1beta/interactions (x-goog-api-key header, or ?key= in some doc examples)",
+      "request_example": {
+        "model": "gemini-omni-1.1-flash",
+        "input": [
+          {
+            "type": "image",
+            "data": "<BASE64_IMAGE>",
+            "mime_type": "image/jpeg"
+          },
+          {
+            "type": "text",
+            "text": "turn this into realistic footage..."
+          }
+        ],
+        "generation_config": {
+          "video_config": {
+            "task": "image_to_video"
+          }
+        },
+        "response_format": {
+          "type": "video",
+          "aspect_ratio": "9:16",
+          "resolution": "720p"
+        }
+      },
+      "aspect_values": [
+        "16:9",
+        "9:16"
+      ],
+      "resolution_values": [
+        "360p",
+        "720p",
+        "1080p (upscaled)",
+        "4k (upscaled)"
+      ],
+      "duration": "Changelog: 3-10 second videos; no duration parameter seen in the guide.",
+      "response_path": "Synchronous: steps[] type=='model_output' -> content[] type=='video' -> data (base64 mp4). For >4MB use response_format {type:'video', delivery:'uri'} -> output_video.uri ('files/<id>'), poll GET /v1beta/files/<id> until state ACTIVE, then download.",
+      "notes": "Request examples combined from separate guide snippets (task param example and aspect/resolution examples)."
+    },
+    "doc_url": "https://ai.google.dev/gemini-api/docs/veo ; https://ai.google.dev/gemini-api/docs/omni ; https://ai.google.dev/gemini-api/docs/deprecations#veo-models"
+  },
+  "openai_image": {
+    "endpoint": "POST https://api.openai.com/v1/images/generations (JSON). POST https://api.openai.com/v1/images/edits (multipart with repeated image[] fields, OR JSON with images:[{image_url: <URL or data:image/png;base64,...>} | {file_id}]).",
+    "request_example": {
+      "generations": {
+        "model": "gpt-image-2.5-sunburst",
+        "prompt": "A children's book drawing of a veterinarian...",
+        "size": "1536x1024",
+        "quality": "high",
+        "output_format": "png",
+        "n": 1
+      },
+      "edits_json": {
+        "images": [
+          {
+            "image_url": "data:image/png;base64,<B64_1>"
+          },
+          {
+            "image_url": "data:image/png;base64,<B64_2>"
+          }
+        ],
+        "prompt": "Add a watercolor effect to this image",
+        "model": "gpt-image-1.5",
+        "quality": "high",
+        "size": "1024x1024"
+      },
+      "edits_multipart_fields": [
+        "model=gpt-image-1.5",
+        "image[]=@body-lotion.png",
+        "image[]=@bath-bomb.png",
+        "image[]=@incense-kit.png",
+        "image[]=@soap.png",
+        "prompt=Create a lovely gift basket with these four items in it"
+      ]
+    },
+    "models": [
+      {
+        "id": "gpt-image-2.5-sunburst",
+        "label": "GPT Image 2.5 Sunburst",
+        "aspect_values": [],
+        "size_or_resolution_values": [
+          "auto",
+          "1024x1024",
+          "1536x1024",
+          "1024x1536",
+          "any WxH: both divisible by 16, aspect 1:3..3:1, max 3840x2160 (>2560x1440 experimental)"
+        ],
+        "duration_values": null,
+        "duration_type": null,
+        "supports_reference_images": true,
+        "max_reference_images": 16,
+        "notes": "Current default (edits default model). quality low/medium/high/xhigh/max/auto. Snapshot gpt-image-2.5-sunburst-2026-09-08. 'editing precision'."
+      },
+      {
+        "id": "gpt-image-2.5-flare",
+        "label": "GPT Image 2.5 Flare",
+        "aspect_values": [],
+        "size_or_resolution_values": [
+          "auto",
+          "1024x1024",
+          "1536x1024",
+          "1024x1536",
+          "any WxH as above"
+        ],
+        "duration_values": null,
+        "duration_type": null,
+        "supports_reference_images": true,
+        "max_reference_images": 16,
+        "notes": "Fast everyday model. quality adds xhigh/max."
+      },
+      {
+        "id": "gpt-image-2",
+        "label": "GPT Image 2",
+        "aspect_values": [],
+        "size_or_resolution_values": [
+          "auto",
+          "1024x1024",
+          "1536x1024",
+          "1024x1536",
+          "any WxH as above"
+        ],
+        "duration_values": null,
+        "duration_type": null,
+        "supports_reference_images": true,
+        "max_reference_images": 16,
+        "notes": "Omit input_fidelity (always high). Transparent background in preview."
+      },
+      {
+        "id": "gpt-image-1.5",
+        "label": "GPT Image 1.5",
+        "aspect_values": [],
+        "size_or_resolution_values": [
+          "auto",
+          "1024x1024",
+          "1536x1024",
+          "1024x1536"
+        ],
+        "duration_values": null,
+        "duration_type": null,
+        "supports_reference_images": true,
+        "max_reference_images": 16,
+        "notes": "Exists. input_fidelity high/low. Shutdown 2026-12-01."
+      },
+      {
+        "id": "gpt-image-1-mini",
+        "label": "GPT Image 1 Mini",
+        "aspect_values": [],
+        "size_or_resolution_values": [
+          "auto",
+          "1024x1024",
+          "1536x1024",
+          "1024x1536"
+        ],
+        "duration_values": null,
+        "duration_type": null,
+        "supports_reference_images": true,
+        "max_reference_images": 16,
+        "notes": "input_fidelity low only. Shutdown 2026-12-01."
+      },
+      {
+        "id": "gpt-image-1",
+        "label": "GPT Image 1",
+        "aspect_values": [],
+        "size_or_resolution_values": [
+          "auto",
+          "1024x1024",
+          "1536x1024",
+          "1024x1536"
+        ],
+        "duration_values": null,
+        "duration_type": null,
+        "supports_reference_images": true,
+        "max_reference_images": 16,
+        "notes": "Shutdown 2026-10-23 (two weeks away)."
+      },
+      {
+        "id": "dall-e-3",
+        "label": "DALL-E 3",
+        "aspect_values": [],
+        "size_or_resolution_values": [
+          "1024x1024",
+          "1792x1024",
+          "1024x1792"
+        ],
+        "duration_values": null,
+        "duration_type": null,
+        "supports_reference_images": false,
+        "max_reference_images": 0,
+        "notes": "ALREADY SHUT DOWN 2026-05-12 (still in enum; quality standard/hd, style, response_format url are 'legacy ... for retired image models')."
+      }
+    ],
+    "params": {
+      "quality": [
+        "low",
+        "medium",
+        "high",
+        "auto",
+        "xhigh (2.5 only)",
+        "max (2.5 only)"
+      ],
+      "output_format": [
+        "png",
+        "jpeg",
+        "webp"
+      ],
+      "output_compression": "0-100 for jpeg/webp",
+      "background": [
+        "transparent",
+        "opaque",
+        "auto"
+      ],
+      "moderation": [
+        "low",
+        "auto"
+      ],
+      "n": "1-10",
+      "prompt_max_chars": 32000
+    },
+    "response_path": "data[i].b64_json (GPT image models always return base64; url / response_format unsupported). Also top-level output_format, size, quality, usage.",
+    "poll": "None - synchronous (complex prompts up to ~2 min).",
+    "download": "None - base64 inline.",
+    "doc_url": "https://developers.openai.com/api/reference/resources/images ; https://developers.openai.com/api/docs/guides/image-generation ; https://developers.openai.com/api/docs/deprecations"
+  },
+  "sora": {
+    "endpoint": "POST https://api.openai.com/v1/videos -- SHUT DOWN 2026-09-24 (Videos API and all sora-2 / sora-2-pro snapshots). 'No one-to-one replacement API is available.'",
+    "request_example": {
+      "_historical_multipart_fields": [
+        "prompt=She turns around and smiles, then slowly walks out of the frame.",
+        "model=sora-2-pro",
+        "size=1280x720",
+        "seconds=8",
+        "input_reference=@sample_720p.jpeg;type=image/jpeg"
+      ],
+      "_historical_json": {
+        "prompt": "...",
+        "model": "sora-2",
+        "seconds": "8",
+        "size": "1280x720",
+        "input_reference": {
+          "image_url": "data:image/jpeg;base64,<B64>"
+        }
+      }
+    },
+    "models": [
+      {
+        "id": "sora-2",
+        "label": "Sora 2",
+        "aspect_values": [],
+        "size_or_resolution_values": [
+          "720x1280",
+          "1280x720",
+          "1024x1792",
+          "1792x1024"
+        ],
+        "duration_values": [
+          "4",
+          "8",
+          "12"
+        ],
+        "duration_type": "string",
+        "supports_reference_images": true,
+        "max_reference_images": 1,
+        "notes": "SHUT DOWN 2026-09-24. Guide (historical) also mentions 16/20s."
+      },
+      {
+        "id": "sora-2-pro",
+        "label": "Sora 2 Pro",
+        "aspect_values": [],
+        "size_or_resolution_values": [
+          "720x1280",
+          "1280x720",
+          "1024x1792",
+          "1792x1024",
+          "1920x1080 (guide)",
+          "1080x1920 (guide)"
+        ],
+        "duration_values": [
+          "4",
+          "8",
+          "12"
+        ],
+        "duration_type": "string",
+        "supports_reference_images": true,
+        "max_reference_images": 1,
+        "notes": "SHUT DOWN 2026-09-24."
+      }
+    ],
+    "response_path": "(historical) Video object {id, status: queued|in_progress|completed|failed, progress, seconds, size, error, expires_at}",
+    "poll": "(historical) GET /v1/videos/{video_id} until status completed/failed.",
+    "download": "(historical) GET /v1/videos/{video_id}/content?variant=video|thumbnail|spritesheet with Bearer header, curl -L; URLs valid max 1 hour.",
+    "doc_url": "https://developers.openai.com/api/reference/resources/videos/methods/create ; https://developers.openai.com/api/docs/guides/video-generation ; https://developers.openai.com/api/docs/deprecations#2026-03-24-sora-2-video-generation-models-and-videos-api"
+  }
+}

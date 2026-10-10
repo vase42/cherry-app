@@ -1,0 +1,2961 @@
+{
+  "image": [
+    {
+      "id": "google/nano-banana",
+      "label": "Nano Banana (Gemini 2.5 Flash Image)",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "refs": {
+        "field": "image_input",
+        "list": true,
+        "max": null
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "match_input_image",
+          "1:1",
+          "2:3",
+          "3:2",
+          "3:4",
+          "4:3",
+          "4:5",
+          "5:4",
+          "9:16",
+          "16:9",
+          "21:9"
+        ],
+        "default": "match_input_image"
+      },
+      "resolution": null,
+      "duration": null,
+      "format": {
+        "field": "output_format",
+        "values": [
+          "jpg",
+          "png"
+        ],
+        "default": "jpg"
+      },
+      "fixed": {},
+      "output": "string",
+      "notes": "Ref image count limit not stated in schema ('supports multiple images').",
+      "doc_url": "https://replicate.com/google/nano-banana/api/schema",
+      "prompt_required": true
+    },
+    {
+      "id": "google/nano-banana-2",
+      "label": "Nano Banana 2 (Gemini 3.1 Flash Image)",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "refs": {
+        "field": "image_input",
+        "list": true,
+        "max": 14
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "match_input_image",
+          "1:1",
+          "1:4",
+          "1:8",
+          "2:3",
+          "3:2",
+          "3:4",
+          "4:1",
+          "4:3",
+          "4:5",
+          "5:4",
+          "8:1",
+          "9:16",
+          "16:9",
+          "21:9"
+        ],
+        "default": "match_input_image"
+      },
+      "resolution": {
+        "field": "resolution",
+        "values": [
+          "1K",
+          "2K",
+          "4K"
+        ],
+        "default": "1K"
+      },
+      "duration": null,
+      "format": {
+        "field": "output_format",
+        "values": [
+          "jpg",
+          "png"
+        ],
+        "default": "jpg"
+      },
+      "fixed": {},
+      "output": "string",
+      "notes": "Also google_search / image_search booleans (default false).",
+      "doc_url": "https://replicate.com/google/nano-banana-2/api/schema",
+      "prompt_required": true
+    },
+    {
+      "id": "google/nano-banana-2.1",
+      "label": "Nano Banana 2.1",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "refs": {
+        "field": "image_input",
+        "list": true,
+        "max": 14
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "match_input_image",
+          "1:1",
+          "1:4",
+          "1:8",
+          "2:3",
+          "3:2",
+          "3:4",
+          "4:1",
+          "4:3",
+          "4:5",
+          "5:4",
+          "8:1",
+          "9:16",
+          "16:9",
+          "21:9"
+        ],
+        "default": "match_input_image"
+      },
+      "resolution": {
+        "field": "resolution",
+        "values": [
+          "1K",
+          "2K",
+          "4K"
+        ],
+        "default": "1K"
+      },
+      "duration": null,
+      "format": {
+        "field": "output_format",
+        "values": [
+          "jpg",
+          "png"
+        ],
+        "default": "jpg"
+      },
+      "fixed": {},
+      "output": "string",
+      "notes": "Same schema as nano-banana-2 (google_search / image_search booleans).",
+      "doc_url": "https://replicate.com/google/nano-banana-2.1/api/schema",
+      "prompt_required": true
+    },
+    {
+      "id": "google/nano-banana-pro",
+      "label": "Nano Banana Pro",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "refs": {
+        "field": "image_input",
+        "list": true,
+        "max": 14
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "match_input_image",
+          "1:1",
+          "2:3",
+          "3:2",
+          "3:4",
+          "4:3",
+          "4:5",
+          "5:4",
+          "9:16",
+          "16:9",
+          "21:9"
+        ],
+        "default": "match_input_image"
+      },
+      "resolution": {
+        "field": "resolution",
+        "values": [
+          "1K",
+          "2K",
+          "4K"
+        ],
+        "default": "2K"
+      },
+      "duration": null,
+      "format": {
+        "field": "output_format",
+        "values": [
+          "jpg",
+          "png"
+        ],
+        "default": "jpg"
+      },
+      "fixed": {},
+      "output": "string",
+      "notes": "Also safety_filter_level (default block_only_high) and allow_fallback_model (bool, default false; falls back to bytedance/seedream-5).",
+      "doc_url": "https://replicate.com/google/nano-banana-pro/api/schema",
+      "prompt_required": true
+    },
+    {
+      "id": "google/imagen-4",
+      "label": "Imagen 4",
+      "mode": "text",
+      "prompt_field": "prompt",
+      "refs": null,
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "1:1",
+          "9:16",
+          "16:9",
+          "3:4",
+          "4:3"
+        ],
+        "default": "1:1"
+      },
+      "resolution": {
+        "field": "image_size",
+        "values": [
+          "1K",
+          "2K"
+        ],
+        "default": "1K"
+      },
+      "duration": null,
+      "format": {
+        "field": "output_format",
+        "values": [
+          "jpg",
+          "png"
+        ],
+        "default": "jpg"
+      },
+      "fixed": {},
+      "output": "string",
+      "notes": "Text-only. Resolution field is image_size. safety_filter_level default block_only_high.",
+      "doc_url": "https://replicate.com/google/imagen-4/api/schema",
+      "prompt_required": true
+    },
+    {
+      "id": "google/imagen-4-fast",
+      "label": "Imagen 4 Fast",
+      "mode": "text",
+      "prompt_field": "prompt",
+      "refs": null,
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "1:1",
+          "9:16",
+          "16:9",
+          "3:4",
+          "4:3"
+        ],
+        "default": "1:1"
+      },
+      "resolution": null,
+      "duration": null,
+      "format": {
+        "field": "output_format",
+        "values": [
+          "jpg",
+          "png"
+        ],
+        "default": "jpg"
+      },
+      "fixed": {},
+      "output": "string",
+      "notes": "Text-only, no resolution option.",
+      "doc_url": "https://replicate.com/google/imagen-4-fast/api/schema",
+      "prompt_required": true
+    },
+    {
+      "id": "google/imagen-4-ultra",
+      "label": "Imagen 4 Ultra",
+      "mode": "text",
+      "prompt_field": "prompt",
+      "refs": null,
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "1:1",
+          "9:16",
+          "16:9",
+          "3:4",
+          "4:3"
+        ],
+        "default": "1:1"
+      },
+      "resolution": {
+        "field": "image_size",
+        "values": [
+          "1K",
+          "2K"
+        ],
+        "default": "1K"
+      },
+      "duration": null,
+      "format": {
+        "field": "output_format",
+        "values": [
+          "jpg",
+          "png"
+        ],
+        "default": "jpg"
+      },
+      "fixed": {},
+      "output": "string",
+      "notes": "Text-only. Resolution field is image_size.",
+      "doc_url": "https://replicate.com/google/imagen-4-ultra/api/schema",
+      "prompt_required": true
+    },
+    {
+      "id": "black-forest-labs/flux-schnell",
+      "label": "FLUX.1 [schnell]",
+      "mode": "text",
+      "prompt_field": "prompt",
+      "refs": null,
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "1:1",
+          "16:9",
+          "21:9",
+          "3:2",
+          "2:3",
+          "4:5",
+          "5:4",
+          "3:4",
+          "4:3",
+          "9:16",
+          "9:21"
+        ],
+        "default": "1:1"
+      },
+      "resolution": {
+        "field": "megapixels",
+        "values": [
+          "1",
+          "0.25"
+        ],
+        "default": "1"
+      },
+      "duration": null,
+      "format": {
+        "field": "output_format",
+        "values": [
+          "webp",
+          "jpg",
+          "png"
+        ],
+        "default": "webp"
+      },
+      "fixed": {
+        "num_outputs": 1
+      },
+      "output": "list",
+      "notes": "Output is a LIST. megapixels enum strings '1'/'0.25'. num_outputs 1-4, num_inference_steps 1-4 (default 4).",
+      "doc_url": "https://replicate.com/black-forest-labs/flux-schnell/api/schema",
+      "prompt_required": true
+    },
+    {
+      "id": "black-forest-labs/flux-dev",
+      "label": "FLUX.1 [dev]",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "refs": {
+        "field": "image",
+        "list": false,
+        "max": 1
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "1:1",
+          "16:9",
+          "21:9",
+          "3:2",
+          "2:3",
+          "4:5",
+          "5:4",
+          "3:4",
+          "4:3",
+          "9:16",
+          "9:21"
+        ],
+        "default": "1:1"
+      },
+      "resolution": {
+        "field": "megapixels",
+        "values": [
+          "1",
+          "0.25"
+        ],
+        "default": "1"
+      },
+      "duration": null,
+      "format": {
+        "field": "output_format",
+        "values": [
+          "webp",
+          "jpg",
+          "png"
+        ],
+        "default": "webp"
+      },
+      "fixed": {
+        "num_outputs": 1
+      },
+      "output": "list",
+      "notes": "Output is a LIST. 'image' is a single img2img init image (string, not list); prompt_strength 0-1 default 0.8. Output aspect follows input image when given.",
+      "doc_url": "https://replicate.com/black-forest-labs/flux-dev/api/schema",
+      "prompt_required": true
+    },
+    {
+      "id": "black-forest-labs/flux-1.1-pro",
+      "label": "FLUX 1.1 [pro]",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "refs": {
+        "field": "image_prompt",
+        "list": false,
+        "max": 1
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "custom",
+          "1:1",
+          "16:9",
+          "3:2",
+          "2:3",
+          "4:5",
+          "5:4",
+          "9:16",
+          "3:4",
+          "4:3"
+        ],
+        "default": "1:1"
+      },
+      "resolution": null,
+      "duration": null,
+      "format": {
+        "field": "output_format",
+        "values": [
+          "webp",
+          "jpg",
+          "png"
+        ],
+        "default": "webp"
+      },
+      "fixed": {},
+      "output": "string",
+      "notes": "image_prompt is a Redux composition guide (single string), not a true edit. aspect 'custom' needs width/height (256-1440, multiple of 32). safety_tolerance 1-6.",
+      "doc_url": "https://replicate.com/black-forest-labs/flux-1.1-pro/api/schema",
+      "prompt_required": true
+    },
+    {
+      "id": "black-forest-labs/flux-1.1-pro-ultra",
+      "label": "FLUX 1.1 [pro] Ultra",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "refs": {
+        "field": "image_prompt",
+        "list": false,
+        "max": 1
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "21:9",
+          "16:9",
+          "3:2",
+          "4:3",
+          "5:4",
+          "1:1",
+          "4:5",
+          "3:4",
+          "2:3",
+          "9:16",
+          "9:21"
+        ],
+        "default": "1:1"
+      },
+      "resolution": null,
+      "duration": null,
+      "format": {
+        "field": "output_format",
+        "values": [
+          "jpg",
+          "png"
+        ],
+        "default": "jpg"
+      },
+      "fixed": {},
+      "output": "string",
+      "notes": "image_prompt (single string) with image_prompt_strength 0-1 default 0.1. raw bool. safety_tolerance 1-6.",
+      "doc_url": "https://replicate.com/black-forest-labs/flux-1.1-pro-ultra/api/schema",
+      "prompt_required": true
+    },
+    {
+      "id": "black-forest-labs/flux-kontext-pro",
+      "label": "FLUX.1 Kontext [pro]",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "refs": {
+        "field": "input_image",
+        "list": false,
+        "max": 1
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "match_input_image",
+          "1:1",
+          "16:9",
+          "9:16",
+          "4:3",
+          "3:4",
+          "3:2",
+          "2:3",
+          "4:5",
+          "5:4",
+          "21:9",
+          "9:21",
+          "2:1",
+          "1:2"
+        ],
+        "default": "match_input_image"
+      },
+      "resolution": null,
+      "duration": null,
+      "format": {
+        "field": "output_format",
+        "values": [
+          "jpg",
+          "png"
+        ],
+        "default": "png"
+      },
+      "fixed": {},
+      "output": "string",
+      "notes": "Single input_image (string). Works text-only too. safety_tolerance 0-6 (max 2 with input image).",
+      "doc_url": "https://replicate.com/black-forest-labs/flux-kontext-pro/api/schema",
+      "prompt_required": true
+    },
+    {
+      "id": "black-forest-labs/flux-kontext-max",
+      "label": "FLUX.1 Kontext [max]",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "refs": {
+        "field": "input_image",
+        "list": false,
+        "max": 1
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "match_input_image",
+          "1:1",
+          "16:9",
+          "9:16",
+          "4:3",
+          "3:4",
+          "3:2",
+          "2:3",
+          "4:5",
+          "5:4",
+          "21:9",
+          "9:21",
+          "2:1",
+          "1:2"
+        ],
+        "default": "match_input_image"
+      },
+      "resolution": null,
+      "duration": null,
+      "format": {
+        "field": "output_format",
+        "values": [
+          "jpg",
+          "png"
+        ],
+        "default": "png"
+      },
+      "fixed": {},
+      "output": "string",
+      "notes": "Single input_image (string). safety_tolerance 0-6 (max 2 with input image).",
+      "doc_url": "https://replicate.com/black-forest-labs/flux-kontext-max/api/schema",
+      "prompt_required": true
+    },
+    {
+      "id": "black-forest-labs/flux-2-pro",
+      "label": "FLUX.2 [pro]",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "refs": {
+        "field": "input_images",
+        "list": true,
+        "max": 8
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "match_input_image",
+          "custom",
+          "1:1",
+          "16:9",
+          "3:2",
+          "2:3",
+          "4:5",
+          "5:4",
+          "9:16",
+          "3:4",
+          "4:3"
+        ],
+        "default": "1:1"
+      },
+      "resolution": {
+        "field": "resolution",
+        "values": [
+          "match_input_image",
+          "0.5 MP",
+          "1 MP",
+          "2 MP",
+          "4 MP"
+        ],
+        "default": "1 MP"
+      },
+      "duration": null,
+      "format": {
+        "field": "output_format",
+        "values": [
+          "webp",
+          "jpg",
+          "png"
+        ],
+        "default": "webp"
+      },
+      "fixed": {},
+      "output": "string",
+      "notes": "Field is input_images (plural). aspect 'custom' needs width/height 256-2048 (multiple of 16). safety_tolerance 1-5.",
+      "doc_url": "https://replicate.com/black-forest-labs/flux-2-pro/api/schema",
+      "prompt_required": true
+    },
+    {
+      "id": "black-forest-labs/flux-2-max",
+      "label": "FLUX.2 [max]",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "refs": {
+        "field": "input_images",
+        "list": true,
+        "max": 8
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "match_input_image",
+          "custom",
+          "1:1",
+          "16:9",
+          "3:2",
+          "2:3",
+          "4:5",
+          "5:4",
+          "9:16",
+          "3:4",
+          "4:3"
+        ],
+        "default": "1:1"
+      },
+      "resolution": {
+        "field": "resolution",
+        "values": [
+          "match_input_image",
+          "0.5 MP",
+          "1 MP",
+          "2 MP",
+          "4 MP"
+        ],
+        "default": "1 MP"
+      },
+      "duration": null,
+      "format": {
+        "field": "output_format",
+        "values": [
+          "webp",
+          "jpg",
+          "png"
+        ],
+        "default": "webp"
+      },
+      "fixed": {},
+      "output": "string",
+      "notes": "Field is input_images. safety_tolerance 1-5.",
+      "doc_url": "https://replicate.com/black-forest-labs/flux-2-max/api/schema",
+      "prompt_required": true
+    },
+    {
+      "id": "black-forest-labs/flux-2-flex",
+      "label": "FLUX.2 [flex]",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "refs": {
+        "field": "input_images",
+        "list": true,
+        "max": 10
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "match_input_image",
+          "custom",
+          "1:1",
+          "16:9",
+          "3:2",
+          "2:3",
+          "4:5",
+          "5:4",
+          "9:16",
+          "3:4",
+          "4:3"
+        ],
+        "default": "1:1"
+      },
+      "resolution": {
+        "field": "resolution",
+        "values": [
+          "match_input_image",
+          "0.5 MP",
+          "1 MP",
+          "2 MP",
+          "4 MP"
+        ],
+        "default": "1 MP"
+      },
+      "duration": null,
+      "format": {
+        "field": "output_format",
+        "values": [
+          "webp",
+          "jpg",
+          "png"
+        ],
+        "default": "webp"
+      },
+      "fixed": {},
+      "output": "string",
+      "notes": "Field is input_images. steps 1-50 (30), guidance 1.5-10 (4.5), prompt_upsampling default true.",
+      "doc_url": "https://replicate.com/black-forest-labs/flux-2-flex/api/schema",
+      "prompt_required": true
+    },
+    {
+      "id": "black-forest-labs/flux-2-dev",
+      "label": "FLUX.2 [dev]",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "refs": {
+        "field": "input_images",
+        "list": true,
+        "max": 5
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "match_input_image",
+          "custom",
+          "1:1",
+          "16:9",
+          "3:2",
+          "2:3",
+          "4:5",
+          "5:4",
+          "9:16",
+          "3:4",
+          "4:3"
+        ],
+        "default": "1:1"
+      },
+      "resolution": null,
+      "duration": null,
+      "format": {
+        "field": "output_format",
+        "values": [
+          "webp",
+          "jpg",
+          "png"
+        ],
+        "default": "webp"
+      },
+      "fixed": {},
+      "output": "string",
+      "notes": "Field is input_images, max 5. No resolution enum; 'custom' aspect uses width/height 256-1440.",
+      "doc_url": "https://replicate.com/black-forest-labs/flux-2-dev/api/schema",
+      "prompt_required": true
+    },
+    {
+      "id": "black-forest-labs/flux-3-image",
+      "label": "FLUX 3 Image",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "refs": {
+        "field": "images",
+        "list": true,
+        "max": 10
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "auto",
+          "21:9",
+          "2:1",
+          "16:9",
+          "3:2",
+          "7:5",
+          "4:3",
+          "5:4",
+          "1:1",
+          "4:5",
+          "3:4",
+          "5:7",
+          "2:3",
+          "9:16",
+          "1:2",
+          "9:21"
+        ],
+        "default": "auto"
+      },
+      "resolution": {
+        "field": "resolution",
+        "values": [
+          "768sq",
+          "1k",
+          "1.5k",
+          "2k",
+          "4k"
+        ],
+        "default": "1k"
+      },
+      "duration": null,
+      "format": {
+        "field": "output_format",
+        "values": [
+          "webp",
+          "jpg",
+          "png"
+        ],
+        "default": "webp"
+      },
+      "fixed": {},
+      "output": "string",
+      "notes": "Field is 'images'. grounding (web search) default true. safety_tolerance 0-4. Resolution values lowercase ('1k').",
+      "doc_url": "https://replicate.com/black-forest-labs/flux-3-image/api/schema",
+      "prompt_required": true
+    },
+    {
+      "id": "bytedance/seedream-4",
+      "label": "Seedream 4",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "refs": {
+        "field": "image_input",
+        "list": true,
+        "max": 10
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "match_input_image",
+          "1:1",
+          "4:3",
+          "3:4",
+          "16:9",
+          "9:16",
+          "3:2",
+          "2:3",
+          "21:9"
+        ],
+        "default": "match_input_image"
+      },
+      "resolution": {
+        "field": "size",
+        "values": [
+          "1K",
+          "2K",
+          "4K",
+          "custom"
+        ],
+        "default": "2K"
+      },
+      "duration": null,
+      "format": null,
+      "fixed": {},
+      "output": "list",
+      "notes": "Output is a LIST. Resolution field is 'size' ('custom' -> width/height 1024-4096). No output_format field. sequential_image_generation default 'disabled'.",
+      "doc_url": "https://replicate.com/bytedance/seedream-4/api/schema",
+      "prompt_required": true
+    },
+    {
+      "id": "bytedance/seedream-4.5",
+      "label": "Seedream 4.5",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "refs": {
+        "field": "image_input",
+        "list": true,
+        "max": 14
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "match_input_image",
+          "1:1",
+          "4:3",
+          "3:4",
+          "4:5",
+          "5:4",
+          "16:9",
+          "9:16",
+          "3:2",
+          "2:3",
+          "21:9",
+          "9:21"
+        ],
+        "default": "match_input_image"
+      },
+      "resolution": {
+        "field": "size",
+        "values": [
+          "2K",
+          "4K",
+          "custom"
+        ],
+        "default": "2K"
+      },
+      "duration": null,
+      "format": null,
+      "fixed": {},
+      "output": "list",
+      "notes": "Output is a LIST. 'size' has no 1K. No output_format field.",
+      "doc_url": "https://replicate.com/bytedance/seedream-4.5/api/schema",
+      "prompt_required": true
+    },
+    {
+      "id": "bytedance/seedream-5-lite",
+      "label": "Seedream 5.0 Lite",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "refs": {
+        "field": "image_input",
+        "list": true,
+        "max": 14
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "match_input_image",
+          "1:1",
+          "4:3",
+          "3:4",
+          "16:9",
+          "9:16",
+          "3:2",
+          "2:3",
+          "21:9"
+        ],
+        "default": "match_input_image"
+      },
+      "resolution": {
+        "field": "size",
+        "values": [
+          "2K",
+          "3K"
+        ],
+        "default": "2K"
+      },
+      "duration": null,
+      "format": {
+        "field": "output_format",
+        "values": [
+          "png",
+          "jpeg"
+        ],
+        "default": "png"
+      },
+      "fixed": {},
+      "output": "list",
+      "notes": "Output is a LIST. size 2K/3K. output_format png/jpeg.",
+      "doc_url": "https://replicate.com/bytedance/seedream-5-lite/api/schema",
+      "prompt_required": true
+    },
+    {
+      "id": "qwen/qwen-image",
+      "label": "Qwen Image",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "refs": {
+        "field": "image",
+        "list": false,
+        "max": 1
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "1:1",
+          "16:9",
+          "9:16",
+          "4:3",
+          "3:4",
+          "3:2",
+          "2:3"
+        ],
+        "default": "16:9"
+      },
+      "resolution": null,
+      "duration": null,
+      "format": {
+        "field": "output_format",
+        "values": [
+          "webp",
+          "jpg",
+          "png"
+        ],
+        "default": "webp"
+      },
+      "fixed": {},
+      "output": "list",
+      "notes": "Output is a LIST. 'image' is img2img init (single string) with strength 0-1 default 0.9. image_size enum optimize_for_quality/optimize_for_speed (not a resolution). Supports LoRA.",
+      "doc_url": "https://replicate.com/qwen/qwen-image/api/schema",
+      "prompt_required": true
+    },
+    {
+      "id": "qwen/qwen-image-edit",
+      "label": "Qwen Image Edit",
+      "mode": "edit",
+      "prompt_field": "prompt",
+      "refs": {
+        "field": "image",
+        "list": false,
+        "max": 1
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "1:1",
+          "16:9",
+          "9:16",
+          "4:3",
+          "3:4",
+          "match_input_image"
+        ],
+        "default": "match_input_image"
+      },
+      "resolution": null,
+      "duration": null,
+      "format": {
+        "field": "output_format",
+        "values": [
+          "webp",
+          "jpg",
+          "png"
+        ],
+        "default": "webp"
+      },
+      "fixed": {},
+      "output": "list",
+      "notes": "Output is a LIST. 'image' is REQUIRED (single string).",
+      "doc_url": "https://replicate.com/qwen/qwen-image-edit/api/schema",
+      "prompt_required": true
+    },
+    {
+      "id": "qwen/qwen-image-edit-plus",
+      "label": "Qwen Image Edit Plus",
+      "mode": "edit",
+      "prompt_field": "prompt",
+      "refs": {
+        "field": "image",
+        "list": true,
+        "max": null
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "1:1",
+          "16:9",
+          "9:16",
+          "4:3",
+          "3:4",
+          "match_input_image"
+        ],
+        "default": "match_input_image"
+      },
+      "resolution": null,
+      "duration": null,
+      "format": {
+        "field": "output_format",
+        "values": [
+          "webp",
+          "jpg",
+          "png"
+        ],
+        "default": "webp"
+      },
+      "fixed": {},
+      "output": "list",
+      "notes": "Output is a LIST. 'image' is a REQUIRED ARRAY of URIs (max not stated).",
+      "doc_url": "https://replicate.com/qwen/qwen-image-edit-plus/api/schema",
+      "prompt_required": true
+    },
+    {
+      "id": "ideogram-ai/ideogram-v3-turbo",
+      "label": "Ideogram 3.0 Turbo",
+      "mode": "text",
+      "prompt_field": "prompt",
+      "refs": {
+        "field": "style_reference_images",
+        "list": true,
+        "max": null
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "1:3",
+          "3:1",
+          "1:2",
+          "2:1",
+          "9:16",
+          "16:9",
+          "10:16",
+          "16:10",
+          "2:3",
+          "3:2",
+          "3:4",
+          "4:3",
+          "4:5",
+          "5:4",
+          "1:1"
+        ],
+        "default": "1:1"
+      },
+      "resolution": null,
+      "duration": null,
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": "style_reference_images are style refs only (list), not edit inputs. 'image'+'mask' = inpainting. 'resolution' enum of ~70 WxH strings (default 'None') overrides aspect_ratio — omitted here. style_type, style_preset, magic_prompt_option (Auto/On/Off). No output_format.",
+      "doc_url": "https://replicate.com/ideogram-ai/ideogram-v3-turbo/api/schema",
+      "prompt_required": true
+    },
+    {
+      "id": "recraft-ai/recraft-v3",
+      "label": "Recraft V3",
+      "mode": "text",
+      "prompt_field": "prompt",
+      "refs": null,
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "Not set",
+          "1:1",
+          "4:3",
+          "3:4",
+          "3:2",
+          "2:3",
+          "16:9",
+          "9:16",
+          "1:2",
+          "2:1",
+          "7:5",
+          "5:7",
+          "4:5",
+          "5:4",
+          "3:5",
+          "5:3"
+        ],
+        "default": "Not set"
+      },
+      "resolution": {
+        "field": "size",
+        "values": [
+          "1024x1024",
+          "1365x1024",
+          "1024x1365",
+          "1536x1024",
+          "1024x1536",
+          "1820x1024",
+          "1024x1820",
+          "1024x2048",
+          "2048x1024",
+          "1434x1024",
+          "1024x1434",
+          "1024x1280",
+          "1280x1024",
+          "1024x1707",
+          "1707x1024"
+        ],
+        "default": "1024x1024"
+      },
+      "duration": null,
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": "Text-only. aspect_ratio default 'Not set'; 'size' (WxH enum) is ignored if aspect set. 'style' enum (default 'any'). No output_format.",
+      "doc_url": "https://replicate.com/recraft-ai/recraft-v3/api/schema",
+      "prompt_required": true
+    },
+    {
+      "id": "openai/gpt-image-1.5",
+      "label": "GPT Image 1.5",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "refs": {
+        "field": "input_images",
+        "list": true,
+        "max": null
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "1:1",
+          "3:2",
+          "2:3"
+        ],
+        "default": "1:1"
+      },
+      "resolution": null,
+      "duration": null,
+      "format": {
+        "field": "output_format",
+        "values": [
+          "png",
+          "jpeg",
+          "webp"
+        ],
+        "default": "webp"
+      },
+      "fixed": {
+        "number_of_images": 1
+      },
+      "output": "list",
+      "notes": "Output is a LIST. openai_api_key optional (proxy used if omitted). quality low/medium/high/auto, background auto/transparent/opaque, input_fidelity low/high, moderation auto/low. (openai/gpt-image-1 REQUIRES openai_api_key, so excluded.)",
+      "doc_url": "https://replicate.com/openai/gpt-image-1.5/api/schema",
+      "prompt_required": true
+    },
+    {
+      "id": "openai/gpt-image-2",
+      "label": "GPT Image 2",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "refs": {
+        "field": "input_images",
+        "list": true,
+        "max": null
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "1:1",
+          "3:2",
+          "2:3",
+          "4:3",
+          "3:4",
+          "16:9",
+          "9:16",
+          "auto",
+          "1024x1024",
+          "1536x1024",
+          "1024x1536",
+          "1536x1152",
+          "1152x1536",
+          "2048x2048",
+          "2048x1152",
+          "1152x2048",
+          "3840x2160",
+          "2160x3840"
+        ],
+        "default": "1:1"
+      },
+      "resolution": null,
+      "duration": null,
+      "format": {
+        "field": "output_format",
+        "values": [
+          "png",
+          "jpeg",
+          "webp"
+        ],
+        "default": "webp"
+      },
+      "fixed": {
+        "number_of_images": 1
+      },
+      "output": "list",
+      "notes": "Output is a LIST. aspect_ratio enum mixes ratios, 'auto' and WxH sizes up to 3840x2160 (>2560x1440 experimental). openai_api_key optional.",
+      "doc_url": "https://replicate.com/openai/gpt-image-2/api/schema",
+      "prompt_required": true
+    },
+    {
+      "id": "xai/grok-imagine-image-2",
+      "label": "Grok Imagine Image 2.0",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "refs": {
+        "field": "image",
+        "list": false,
+        "max": 1
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "1:1",
+          "16:9",
+          "9:16",
+          "4:3",
+          "3:4",
+          "3:2",
+          "2:3",
+          "2:1",
+          "1:2",
+          "19.5:9",
+          "9:19.5",
+          "20:9",
+          "9:20",
+          "auto"
+        ],
+        "default": "1:1"
+      },
+      "resolution": {
+        "field": "resolution",
+        "values": [
+          "1k",
+          "2k"
+        ],
+        "default": "2k"
+      },
+      "duration": null,
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": "Single 'image' for editing; aspect_ratio ignored when editing. quality low/medium (default medium). No output_format.",
+      "doc_url": "https://replicate.com/xai/grok-imagine-image-2/api/schema",
+      "prompt_required": true
+    },
+    {
+      "id": "wan-video/wan-2.7-image-pro",
+      "label": "Wan 2.7 Image Pro",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "refs": {
+        "field": "images",
+        "list": true,
+        "max": 9
+      },
+      "aspect": null,
+      "resolution": {
+        "field": "size",
+        "values": [
+          "1K",
+          "2K",
+          "4K",
+          "1024*1024",
+          "2048*2048",
+          "4096*4096",
+          "1280*720",
+          "720*1280",
+          "2048*1152",
+          "1152*2048",
+          "4096*2304",
+          "2304*4096",
+          "1024*768",
+          "768*1024",
+          "2048*1536",
+          "1536*2048",
+          "4096*3072",
+          "3072*4096"
+        ],
+        "default": "2K"
+      },
+      "duration": null,
+      "format": null,
+      "fixed": {
+        "num_outputs": 1
+      },
+      "output": "list",
+      "notes": "Output is a LIST. No aspect field — aspect is encoded in 'size' (e.g. '1280*720', uses '*'); '1K/2K/4K' auto-size, 4K only for text-to-image. thinking_mode default true.",
+      "doc_url": "https://replicate.com/wan-video/wan-2.7-image-pro/api/schema",
+      "prompt_required": true
+    }
+  ],
+  "video": [
+    {
+      "id": "kwaivgi/kling-v2.1",
+      "label": "Kling v2.1",
+      "mode": "edit",
+      "prompt_field": "prompt",
+      "prompt_required": true,
+      "first_frame": {
+        "field": "start_image",
+        "list": false,
+        "required": true
+      },
+      "aspect": null,
+      "resolution": {
+        "field": "mode",
+        "values": [
+          "standard",
+          "pro"
+        ],
+        "default": "standard"
+      },
+      "duration": {
+        "field": "duration",
+        "values": [
+          5,
+          10
+        ],
+        "default": 5,
+        "type": "integer"
+      },
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": "start_image REQUIRED (image-to-video only). 'mode' standard=720p / pro=1080p. end_image requires pro mode. No aspect field.",
+      "doc_url": "https://replicate.com/kwaivgi/kling-v2.1/api/schema"
+    },
+    {
+      "id": "kwaivgi/kling-v2.1-master",
+      "label": "Kling v2.1 Master",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "prompt_required": true,
+      "first_frame": {
+        "field": "start_image",
+        "list": false,
+        "required": false
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "16:9",
+          "9:16",
+          "1:1"
+        ],
+        "default": "16:9"
+      },
+      "resolution": null,
+      "duration": {
+        "field": "duration",
+        "values": [
+          5,
+          10
+        ],
+        "default": 5,
+        "type": "integer"
+      },
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": "aspect_ratio ignored if start_image given. No resolution option.",
+      "doc_url": "https://replicate.com/kwaivgi/kling-v2.1-master/api/schema"
+    },
+    {
+      "id": "kwaivgi/kling-v2.5-turbo-pro",
+      "label": "Kling 2.5 Turbo Pro",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "prompt_required": true,
+      "first_frame": {
+        "field": "start_image",
+        "list": false,
+        "required": false
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "16:9",
+          "9:16",
+          "1:1"
+        ],
+        "default": "16:9"
+      },
+      "resolution": null,
+      "duration": {
+        "field": "duration",
+        "values": [
+          5,
+          10
+        ],
+        "default": 5,
+        "type": "integer"
+      },
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": "end_image supported. 'image' field is deprecated alias of start_image. aspect_ratio ignored with start_image.",
+      "doc_url": "https://replicate.com/kwaivgi/kling-v2.5-turbo-pro/api/schema"
+    },
+    {
+      "id": "kwaivgi/kling-v2.6",
+      "label": "Kling v2.6",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "prompt_required": true,
+      "first_frame": {
+        "field": "start_image",
+        "list": false,
+        "required": false
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "16:9",
+          "9:16",
+          "1:1"
+        ],
+        "default": "16:9"
+      },
+      "resolution": null,
+      "duration": {
+        "field": "duration",
+        "values": [
+          5,
+          10
+        ],
+        "default": 5,
+        "type": "integer"
+      },
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": "generate_audio default TRUE. aspect_ratio ignored with start_image. No end_image.",
+      "doc_url": "https://replicate.com/kwaivgi/kling-v2.6/api/schema"
+    },
+    {
+      "id": "kwaivgi/kling-v3-video",
+      "label": "Kling Video 3.0",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "prompt_required": true,
+      "first_frame": {
+        "field": "start_image",
+        "list": false,
+        "required": false
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "16:9",
+          "9:16",
+          "1:1"
+        ],
+        "default": "16:9"
+      },
+      "resolution": {
+        "field": "mode",
+        "values": [
+          "standard",
+          "pro",
+          "4k"
+        ],
+        "default": "pro"
+      },
+      "duration": {
+        "field": "duration",
+        "min": 3,
+        "max": 15,
+        "default": 5,
+        "type": "integer"
+      },
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": "duration integer range 3-15. mode standard(720p)/pro(1080p)/4k. end_image requires start_image. generate_audio default false. multi_prompt JSON string for multi-shot.",
+      "doc_url": "https://replicate.com/kwaivgi/kling-v3-video/api/schema"
+    },
+    {
+      "id": "google/veo-3",
+      "label": "Veo 3",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "prompt_required": true,
+      "first_frame": {
+        "field": "image",
+        "list": false,
+        "required": false
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "16:9",
+          "9:16"
+        ],
+        "default": "16:9"
+      },
+      "resolution": {
+        "field": "resolution",
+        "values": [
+          "720p",
+          "1080p"
+        ],
+        "default": "1080p"
+      },
+      "duration": {
+        "field": "duration",
+        "values": [
+          4,
+          6,
+          8
+        ],
+        "default": 8,
+        "type": "integer"
+      },
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": "generate_audio default true. negative_prompt, seed.",
+      "doc_url": "https://replicate.com/google/veo-3/api/schema"
+    },
+    {
+      "id": "google/veo-3-fast",
+      "label": "Veo 3 Fast",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "prompt_required": true,
+      "first_frame": {
+        "field": "image",
+        "list": false,
+        "required": false
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "16:9",
+          "9:16"
+        ],
+        "default": "16:9"
+      },
+      "resolution": {
+        "field": "resolution",
+        "values": [
+          "720p",
+          "1080p"
+        ],
+        "default": "1080p"
+      },
+      "duration": {
+        "field": "duration",
+        "values": [
+          4,
+          6,
+          8
+        ],
+        "default": 8,
+        "type": "integer"
+      },
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": "generate_audio default true.",
+      "doc_url": "https://replicate.com/google/veo-3-fast/api/schema"
+    },
+    {
+      "id": "google/veo-3.1",
+      "label": "Veo 3.1",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "prompt_required": true,
+      "first_frame": {
+        "field": "image",
+        "list": false,
+        "required": false
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "16:9",
+          "9:16"
+        ],
+        "default": "16:9"
+      },
+      "resolution": {
+        "field": "resolution",
+        "values": [
+          "720p",
+          "1080p"
+        ],
+        "default": "1080p"
+      },
+      "duration": {
+        "field": "duration",
+        "values": [
+          4,
+          6,
+          8
+        ],
+        "default": 8,
+        "type": "integer"
+      },
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": "last_frame (end frame). reference_images 1-3 (only 16:9 + 8s). generate_audio default true.",
+      "doc_url": "https://replicate.com/google/veo-3.1/api/schema"
+    },
+    {
+      "id": "google/veo-3.1-fast",
+      "label": "Veo 3.1 Fast",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "prompt_required": true,
+      "first_frame": {
+        "field": "image",
+        "list": false,
+        "required": false
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "16:9",
+          "9:16"
+        ],
+        "default": "16:9"
+      },
+      "resolution": {
+        "field": "resolution",
+        "values": [
+          "720p",
+          "1080p"
+        ],
+        "default": "1080p"
+      },
+      "duration": {
+        "field": "duration",
+        "values": [
+          4,
+          6,
+          8
+        ],
+        "default": 8,
+        "type": "integer"
+      },
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": "last_frame supported. generate_audio default true.",
+      "doc_url": "https://replicate.com/google/veo-3.1-fast/api/schema"
+    },
+    {
+      "id": "google/veo-3.1-lite",
+      "label": "Veo 3.1 Lite",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "prompt_required": true,
+      "first_frame": {
+        "field": "image",
+        "list": false,
+        "required": false
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "16:9",
+          "9:16"
+        ],
+        "default": "16:9"
+      },
+      "resolution": {
+        "field": "resolution",
+        "values": [
+          "720p",
+          "1080p"
+        ],
+        "default": "720p"
+      },
+      "duration": {
+        "field": "duration",
+        "values": [
+          4,
+          6,
+          8
+        ],
+        "default": 8,
+        "type": "integer"
+      },
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": "last_frame supported. Duration must be 8 at 1080p. No generate_audio field.",
+      "doc_url": "https://replicate.com/google/veo-3.1-lite/api/schema"
+    },
+    {
+      "id": "openai/sora-2",
+      "label": "Sora 2",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "prompt_required": true,
+      "first_frame": {
+        "field": "input_reference",
+        "list": false,
+        "required": false
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "portrait",
+          "landscape"
+        ],
+        "default": "portrait"
+      },
+      "resolution": null,
+      "duration": {
+        "field": "seconds",
+        "values": [
+          4,
+          8,
+          12
+        ],
+        "default": 4,
+        "type": "integer"
+      },
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": "Duration field is 'seconds'. aspect_ratio is 'portrait'/'landscape' (720x1280 / 1280x720); input_reference image must match that aspect. openai_api_key optional.",
+      "doc_url": "https://replicate.com/openai/sora-2/api/schema"
+    },
+    {
+      "id": "openai/sora-2-pro",
+      "label": "Sora 2 Pro",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "prompt_required": true,
+      "first_frame": {
+        "field": "input_reference",
+        "list": false,
+        "required": false
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "portrait",
+          "landscape"
+        ],
+        "default": "portrait"
+      },
+      "resolution": {
+        "field": "resolution",
+        "values": [
+          "standard",
+          "high"
+        ],
+        "default": "standard"
+      },
+      "duration": {
+        "field": "seconds",
+        "values": [
+          4,
+          8,
+          12
+        ],
+        "default": 4,
+        "type": "integer"
+      },
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": "Duration field 'seconds'. resolution standard(720p)/high(1024p). input_reference must match aspect.",
+      "doc_url": "https://replicate.com/openai/sora-2-pro/api/schema"
+    },
+    {
+      "id": "bytedance/seedance-1-lite",
+      "label": "Seedance 1 Lite",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "prompt_required": true,
+      "first_frame": {
+        "field": "image",
+        "list": false,
+        "required": false
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "16:9",
+          "4:3",
+          "1:1",
+          "3:4",
+          "9:16",
+          "21:9",
+          "9:21"
+        ],
+        "default": "16:9"
+      },
+      "resolution": {
+        "field": "resolution",
+        "values": [
+          "480p",
+          "720p",
+          "1080p"
+        ],
+        "default": "720p"
+      },
+      "duration": {
+        "field": "duration",
+        "min": 4,
+        "max": 12,
+        "default": 5,
+        "type": "integer"
+      },
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": "duration integer range 4-12. last_frame_image, reference_images (1-4). aspect ignored with image. fps fixed 24.",
+      "doc_url": "https://replicate.com/bytedance/seedance-1-lite/api/schema"
+    },
+    {
+      "id": "bytedance/seedance-1-pro",
+      "label": "Seedance 1 Pro",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "prompt_required": true,
+      "first_frame": {
+        "field": "image",
+        "list": false,
+        "required": false
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "16:9",
+          "4:3",
+          "1:1",
+          "3:4",
+          "9:16",
+          "21:9",
+          "9:21"
+        ],
+        "default": "16:9"
+      },
+      "resolution": {
+        "field": "resolution",
+        "values": [
+          "480p",
+          "720p",
+          "1080p"
+        ],
+        "default": "1080p"
+      },
+      "duration": {
+        "field": "duration",
+        "min": 2,
+        "max": 12,
+        "default": 5,
+        "type": "integer"
+      },
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": "duration integer range 2-12. last_frame_image. aspect ignored with image.",
+      "doc_url": "https://replicate.com/bytedance/seedance-1-pro/api/schema"
+    },
+    {
+      "id": "bytedance/seedance-1-pro-fast",
+      "label": "Seedance 1 Pro Fast",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "prompt_required": true,
+      "first_frame": {
+        "field": "image",
+        "list": false,
+        "required": false
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "16:9",
+          "4:3",
+          "1:1",
+          "3:4",
+          "9:16",
+          "21:9",
+          "9:21"
+        ],
+        "default": "16:9"
+      },
+      "resolution": {
+        "field": "resolution",
+        "values": [
+          "480p",
+          "720p",
+          "1080p"
+        ],
+        "default": "1080p"
+      },
+      "duration": {
+        "field": "duration",
+        "min": 2,
+        "max": 12,
+        "default": 5,
+        "type": "integer"
+      },
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": "duration integer range 2-12. No last frame.",
+      "doc_url": "https://replicate.com/bytedance/seedance-1-pro-fast/api/schema"
+    },
+    {
+      "id": "bytedance/seedance-1.5-pro",
+      "label": "Seedance 1.5 Pro",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "prompt_required": true,
+      "first_frame": {
+        "field": "image",
+        "list": false,
+        "required": false
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "16:9",
+          "4:3",
+          "1:1",
+          "3:4",
+          "9:16",
+          "21:9",
+          "9:21"
+        ],
+        "default": "16:9"
+      },
+      "resolution": {
+        "field": "resolution",
+        "values": [
+          "480p",
+          "720p",
+          "1080p"
+        ],
+        "default": "720p"
+      },
+      "duration": {
+        "field": "duration",
+        "min": 2,
+        "max": 12,
+        "default": 5,
+        "type": "integer"
+      },
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": "duration 2-12. generate_audio default true. last_frame_image.",
+      "doc_url": "https://replicate.com/bytedance/seedance-1.5-pro/api/schema"
+    },
+    {
+      "id": "bytedance/seedance-2.0",
+      "label": "Seedance 2.0",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "prompt_required": true,
+      "first_frame": {
+        "field": "image",
+        "list": false,
+        "required": false
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "16:9",
+          "4:3",
+          "1:1",
+          "3:4",
+          "9:16",
+          "21:9",
+          "9:21",
+          "adaptive"
+        ],
+        "default": "16:9"
+      },
+      "resolution": {
+        "field": "resolution",
+        "values": [
+          "480p",
+          "720p",
+          "1080p",
+          "4k"
+        ],
+        "default": "720p"
+      },
+      "duration": {
+        "field": "duration",
+        "min": -1,
+        "max": 15,
+        "default": 5,
+        "type": "integer"
+      },
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": "duration integer -1..15 (-1 = model picks). Resolution includes 4k. aspect 'adaptive'. image cannot be combined with reference_images. generate_audio default true.",
+      "doc_url": "https://replicate.com/bytedance/seedance-2.0/api/schema"
+    },
+    {
+      "id": "bytedance/seedance-2.0-fast",
+      "label": "Seedance 2.0 Fast",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "prompt_required": true,
+      "first_frame": {
+        "field": "image",
+        "list": false,
+        "required": false
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "16:9",
+          "4:3",
+          "1:1",
+          "3:4",
+          "9:16",
+          "21:9",
+          "9:21",
+          "adaptive"
+        ],
+        "default": "16:9"
+      },
+      "resolution": {
+        "field": "resolution",
+        "values": [
+          "480p",
+          "720p"
+        ],
+        "default": "720p"
+      },
+      "duration": {
+        "field": "duration",
+        "min": -1,
+        "max": 15,
+        "default": 5,
+        "type": "integer"
+      },
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": "duration -1..15. Resolution 480p/720p only.",
+      "doc_url": "https://replicate.com/bytedance/seedance-2.0-fast/api/schema"
+    },
+    {
+      "id": "minimax/hailuo-02",
+      "label": "Hailuo 02",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "prompt_required": true,
+      "first_frame": {
+        "field": "first_frame_image",
+        "list": false,
+        "required": false
+      },
+      "aspect": null,
+      "resolution": {
+        "field": "resolution",
+        "values": [
+          "512p",
+          "768p",
+          "1080p"
+        ],
+        "default": "1080p"
+      },
+      "duration": {
+        "field": "duration",
+        "values": [
+          6,
+          10
+        ],
+        "default": 6,
+        "type": "integer"
+      },
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": "No aspect field (follows first frame). 10s only at 768p. last_frame_image supported. prompt_optimizer default true.",
+      "doc_url": "https://replicate.com/minimax/hailuo-02/api/schema"
+    },
+    {
+      "id": "minimax/hailuo-2.3",
+      "label": "Hailuo 2.3",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "prompt_required": true,
+      "first_frame": {
+        "field": "first_frame_image",
+        "list": false,
+        "required": false
+      },
+      "aspect": null,
+      "resolution": {
+        "field": "resolution",
+        "values": [
+          "768p",
+          "1080p"
+        ],
+        "default": "768p"
+      },
+      "duration": {
+        "field": "duration",
+        "values": [
+          6,
+          10
+        ],
+        "default": 6,
+        "type": "integer"
+      },
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": "10s only at 768p; 1080p = 6s only. No aspect field.",
+      "doc_url": "https://replicate.com/minimax/hailuo-2.3/api/schema"
+    },
+    {
+      "id": "minimax/hailuo-2.3-fast",
+      "label": "Hailuo 2.3 Fast",
+      "mode": "edit",
+      "prompt_field": "prompt",
+      "prompt_required": true,
+      "first_frame": {
+        "field": "first_frame_image",
+        "list": false,
+        "required": true
+      },
+      "aspect": null,
+      "resolution": {
+        "field": "resolution",
+        "values": [
+          "768p",
+          "1080p"
+        ],
+        "default": "768p"
+      },
+      "duration": {
+        "field": "duration",
+        "values": [
+          6,
+          10
+        ],
+        "default": 6,
+        "type": "integer"
+      },
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": "first_frame_image REQUIRED. 1080p = 6s only.",
+      "doc_url": "https://replicate.com/minimax/hailuo-2.3-fast/api/schema"
+    },
+    {
+      "id": "wan-video/wan-2.2-i2v-fast",
+      "label": "Wan 2.2 I2V Fast",
+      "mode": "edit",
+      "prompt_field": "prompt",
+      "prompt_required": true,
+      "first_frame": {
+        "field": "image",
+        "list": false,
+        "required": true
+      },
+      "aspect": null,
+      "resolution": {
+        "field": "resolution",
+        "values": [
+          "480p",
+          "720p"
+        ],
+        "default": "480p"
+      },
+      "duration": null,
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": "image REQUIRED. NO duration field: length = num_frames (81-121, default 81) / frames_per_second (5-30, default 16) => ~5s default. last_image supported. LoRA support.",
+      "doc_url": "https://replicate.com/wan-video/wan-2.2-i2v-fast/api/schema"
+    },
+    {
+      "id": "wan-video/wan-2.5-i2v",
+      "label": "Wan 2.5 I2V",
+      "mode": "edit",
+      "prompt_field": "prompt",
+      "prompt_required": true,
+      "first_frame": {
+        "field": "image",
+        "list": false,
+        "required": true
+      },
+      "aspect": null,
+      "resolution": {
+        "field": "resolution",
+        "values": [
+          "480p",
+          "720p",
+          "1080p"
+        ],
+        "default": "720p"
+      },
+      "duration": {
+        "field": "duration",
+        "values": [
+          5,
+          10
+        ],
+        "default": 5,
+        "type": "integer"
+      },
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": "image REQUIRED. Optional audio (wav/mp3) for sync. No aspect field.",
+      "doc_url": "https://replicate.com/wan-video/wan-2.5-i2v/api/schema"
+    },
+    {
+      "id": "wan-video/wan-2.6-i2v",
+      "label": "Wan 2.6 I2V",
+      "mode": "edit",
+      "prompt_field": "prompt",
+      "prompt_required": true,
+      "first_frame": {
+        "field": "image",
+        "list": false,
+        "required": true
+      },
+      "aspect": null,
+      "resolution": {
+        "field": "resolution",
+        "values": [
+          "720p",
+          "1080p"
+        ],
+        "default": "720p"
+      },
+      "duration": {
+        "field": "duration",
+        "values": [
+          5,
+          10,
+          15
+        ],
+        "default": 5,
+        "type": "integer"
+      },
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": "image REQUIRED. multi_shots bool. Optional audio.",
+      "doc_url": "https://replicate.com/wan-video/wan-2.6-i2v/api/schema"
+    },
+    {
+      "id": "wan-video/wan-2.7-i2v",
+      "label": "Wan 2.7 I2V",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "prompt_required": false,
+      "first_frame": {
+        "field": "first_frame",
+        "list": false,
+        "required": false
+      },
+      "aspect": null,
+      "resolution": {
+        "field": "resolution",
+        "values": [
+          "720p",
+          "1080p"
+        ],
+        "default": "1080p"
+      },
+      "duration": {
+        "field": "duration",
+        "min": 2,
+        "max": 15,
+        "default": 5,
+        "type": "integer"
+      },
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": "Start field is 'first_frame'; last_frame supported; prompt optional (default ''). duration 2-15. Audio auto-generated if none given.",
+      "doc_url": "https://replicate.com/wan-video/wan-2.7-i2v/api/schema"
+    },
+    {
+      "id": "alibaba/wan-3",
+      "label": "Wan 3.0",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "prompt_required": true,
+      "first_frame": {
+        "field": "image",
+        "list": false,
+        "required": false
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "adaptive",
+          "16:9",
+          "9:16",
+          "1:1",
+          "4:3",
+          "3:4"
+        ],
+        "default": "adaptive"
+      },
+      "resolution": {
+        "field": "resolution",
+        "values": [
+          "480p",
+          "720p",
+          "1080p"
+        ],
+        "default": "1080p"
+      },
+      "duration": {
+        "field": "duration",
+        "min": 2,
+        "max": 30,
+        "default": 5,
+        "type": "integer"
+      },
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": "duration integer 2-30. aspect 'adaptive' default; ignored with image.",
+      "doc_url": "https://replicate.com/alibaba/wan-3/api/schema"
+    },
+    {
+      "id": "luma/ray-2-720p",
+      "label": "Luma Ray 2 (720p)",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "prompt_required": true,
+      "first_frame": {
+        "field": "start_image",
+        "list": false,
+        "required": false
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "1:1",
+          "3:4",
+          "4:3",
+          "9:16",
+          "16:9",
+          "9:21",
+          "21:9"
+        ],
+        "default": "16:9"
+      },
+      "resolution": null,
+      "duration": {
+        "field": "duration",
+        "values": [
+          5,
+          9
+        ],
+        "default": 5,
+        "type": "integer"
+      },
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": "end_image, loop, concepts (camera list). start_image_url deprecated. Also luma/ray-2-540p exists (luma/ray-2 is NOT a model).",
+      "doc_url": "https://replicate.com/luma/ray-2-720p/api/schema"
+    },
+    {
+      "id": "luma/ray-3.2",
+      "label": "Luma Ray 3.2",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "prompt_required": true,
+      "first_frame": {
+        "field": "start_image",
+        "list": false,
+        "required": false
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "9:16",
+          "3:4",
+          "1:1",
+          "4:3",
+          "16:9",
+          "21:9"
+        ],
+        "default": "16:9"
+      },
+      "resolution": {
+        "field": "resolution",
+        "values": [
+          "540p",
+          "720p",
+          "1080p"
+        ],
+        "default": "720p"
+      },
+      "duration": {
+        "field": "duration",
+        "values": [
+          5,
+          10
+        ],
+        "default": 5,
+        "type": "integer"
+      },
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": "start_image only valid with 5s duration. hdr / exr_export / loop options.",
+      "doc_url": "https://replicate.com/luma/ray-3.2/api/schema"
+    },
+    {
+      "id": "pixverse/pixverse-v5",
+      "label": "PixVerse v5",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "prompt_required": true,
+      "first_frame": {
+        "field": "image",
+        "list": false,
+        "required": false
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "16:9",
+          "9:16",
+          "1:1"
+        ],
+        "default": "16:9"
+      },
+      "resolution": {
+        "field": "quality",
+        "values": [
+          "360p",
+          "540p",
+          "720p",
+          "1080p"
+        ],
+        "default": "540p"
+      },
+      "duration": {
+        "field": "duration",
+        "values": [
+          5,
+          8
+        ],
+        "default": 5,
+        "type": "integer"
+      },
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": "Resolution field is 'quality'. last_frame_image. effect enum.",
+      "doc_url": "https://replicate.com/pixverse/pixverse-v5/api/schema"
+    },
+    {
+      "id": "pixverse/pixverse-v6",
+      "label": "PixVerse V6",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "prompt_required": true,
+      "first_frame": {
+        "field": "image",
+        "list": false,
+        "required": false
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "16:9",
+          "9:16",
+          "1:1"
+        ],
+        "default": "16:9"
+      },
+      "resolution": {
+        "field": "quality",
+        "values": [
+          "360p",
+          "540p",
+          "720p",
+          "1080p"
+        ],
+        "default": "540p"
+      },
+      "duration": {
+        "field": "duration",
+        "values": [
+          5,
+          8,
+          10,
+          15
+        ],
+        "default": 5,
+        "type": "integer"
+      },
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": "Resolution field 'quality'. aspect ignored with image. generate_audio_switch default false.",
+      "doc_url": "https://replicate.com/pixverse/pixverse-v6/api/schema"
+    },
+    {
+      "id": "runwayml/gen4-turbo",
+      "label": "Runway Gen-4 Turbo",
+      "mode": "edit",
+      "prompt_field": "prompt",
+      "prompt_required": true,
+      "first_frame": {
+        "field": "image",
+        "list": false,
+        "required": true
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "16:9",
+          "9:16",
+          "4:3",
+          "3:4",
+          "1:1",
+          "21:9"
+        ],
+        "default": "16:9"
+      },
+      "resolution": null,
+      "duration": {
+        "field": "duration",
+        "values": [
+          5,
+          10
+        ],
+        "default": 5,
+        "type": "integer"
+      },
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": "image REQUIRED (image-to-video only).",
+      "doc_url": "https://replicate.com/runwayml/gen4-turbo/api/schema"
+    },
+    {
+      "id": "runwayml/gen-4.5",
+      "label": "Runway Gen-4.5",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "prompt_required": true,
+      "first_frame": {
+        "field": "image",
+        "list": false,
+        "required": false
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "16:9",
+          "9:16",
+          "4:3",
+          "3:4",
+          "1:1",
+          "21:9"
+        ],
+        "default": "16:9"
+      },
+      "resolution": null,
+      "duration": {
+        "field": "duration",
+        "values": [
+          5,
+          10
+        ],
+        "default": 5,
+        "type": "integer"
+      },
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": "image optional.",
+      "doc_url": "https://replicate.com/runwayml/gen-4.5/api/schema"
+    },
+    {
+      "id": "xai/grok-imagine-video-1.5",
+      "label": "Grok Imagine Video 1.5",
+      "mode": "edit",
+      "prompt_field": "prompt",
+      "prompt_required": true,
+      "first_frame": {
+        "field": "image",
+        "list": false,
+        "required": true
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "auto",
+          "16:9",
+          "4:3",
+          "1:1",
+          "9:16",
+          "3:4",
+          "3:2",
+          "2:3"
+        ],
+        "default": "auto"
+      },
+      "resolution": {
+        "field": "resolution",
+        "values": [
+          "720p",
+          "480p"
+        ],
+        "default": "720p"
+      },
+      "duration": {
+        "field": "duration",
+        "min": 1,
+        "max": 15,
+        "default": 5,
+        "type": "integer"
+      },
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": "image REQUIRED. duration integer 1-15. aspect 'auto' default.",
+      "doc_url": "https://replicate.com/xai/grok-imagine-video-1.5/api/schema"
+    },
+    {
+      "id": "vidu/q3-pro",
+      "label": "Vidu Q3 Pro",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "prompt_required": true,
+      "first_frame": {
+        "field": "start_image",
+        "list": false,
+        "required": false
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "16:9",
+          "9:16",
+          "3:4",
+          "4:3",
+          "1:1"
+        ],
+        "default": "16:9"
+      },
+      "resolution": {
+        "field": "resolution",
+        "values": [
+          "540p",
+          "720p",
+          "1080p"
+        ],
+        "default": "720p"
+      },
+      "duration": {
+        "field": "duration",
+        "min": 1,
+        "max": 16,
+        "default": 5,
+        "type": "integer"
+      },
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": "duration integer 1-16. end_image supported. 'audio' is a BOOLEAN (default true). aspect ignored with images.",
+      "doc_url": "https://replicate.com/vidu/q3-pro/api/schema"
+    },
+    {
+      "id": "lightricks/ltx-2.5-fast",
+      "label": "LTX 2.5 Fast",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "prompt_required": true,
+      "first_frame": {
+        "field": "image",
+        "list": false,
+        "required": false
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "16:9",
+          "9:16"
+        ],
+        "default": "16:9"
+      },
+      "resolution": {
+        "field": "resolution",
+        "values": [
+          "720p",
+          "1080p",
+          "2k",
+          "4k"
+        ],
+        "default": "1080p"
+      },
+      "duration": {
+        "field": "duration",
+        "values": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          8,
+          10,
+          12,
+          14,
+          16,
+          18,
+          20
+        ],
+        "default": 6,
+        "type": "integer"
+      },
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": ">10s only at 720p/1080p with 24/25 fps. fps enum 24/25/48/50. last_frame_image. generate_audio default true.",
+      "doc_url": "https://replicate.com/lightricks/ltx-2.5-fast/api/schema"
+    },
+    {
+      "id": "black-forest-labs/flux-3",
+      "label": "FLUX 3 (video)",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "prompt_required": true,
+      "first_frame": {
+        "field": "images",
+        "list": true,
+        "required": false
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "auto",
+          "21:9",
+          "2:1",
+          "16:9",
+          "4:3",
+          "1:1",
+          "3:4",
+          "9:16"
+        ],
+        "default": "auto"
+      },
+      "resolution": {
+        "field": "resolution",
+        "values": [
+          "720p",
+          "1080p"
+        ],
+        "default": "720p"
+      },
+      "duration": {
+        "field": "duration",
+        "values": [
+          "auto",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16",
+          "17",
+          "18",
+          "19",
+          "20"
+        ],
+        "default": "auto",
+        "type": "string"
+      },
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": "Starting image goes in 'images' ARRAY (1 image = first frame, 2 = first+last). Duration is a STRING enum incl. 'auto'. start_video for continuation. safety_tolerance 0-4 (max 2 with inputs).",
+      "doc_url": "https://replicate.com/black-forest-labs/flux-3/api/schema"
+    },
+    {
+      "id": "alibaba/happyhorse-1.1",
+      "label": "HappyHorse 1.1",
+      "mode": "both",
+      "prompt_field": "prompt",
+      "prompt_required": false,
+      "first_frame": {
+        "field": "images",
+        "list": true,
+        "required": false
+      },
+      "aspect": {
+        "field": "aspect_ratio",
+        "values": [
+          "16:9",
+          "9:16",
+          "1:1",
+          "4:3",
+          "3:4"
+        ],
+        "default": "16:9"
+      },
+      "resolution": {
+        "field": "resolution",
+        "values": [
+          "720p",
+          "1080p"
+        ],
+        "default": "1080p"
+      },
+      "duration": {
+        "field": "duration",
+        "values": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "default": 5,
+        "type": "integer"
+      },
+      "format": null,
+      "fixed": {},
+      "output": "string",
+      "notes": "Starting image goes in 'images' ARRAY (1 image = first frame; multiple up to 9 = reference-to-video). prompt optional for single-image i2v. aspect ignored for single-image i2v.",
+      "doc_url": "https://replicate.com/alibaba/happyhorse-1.1/api/schema"
+    }
+  ]
+}

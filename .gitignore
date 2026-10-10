@@ -1,0 +1,26 @@
+# The database holds the API keys. Never commit it.
+system/data/
+*.db
+*.db-wal
+*.db-shm
+
+# The user's material, not source: finished images and clips, uploaded
+# references, and the cast.
+Output/
+system/refs/
+system/characters/
+
+# Made on each PC (a shortcut holds absolute paths), and the built release.
+*.lnk
+Cherry.zip
+
+__pycache__/
+*.py[cod]
+*.new
+
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+.claude/

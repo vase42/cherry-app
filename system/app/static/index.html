@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en" data-view="home">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("cherry-theme")||"dark"}catch(e){document.documentElement.dataset.theme="dark"}</script>
+<title>Cherry</title>
+<link rel="stylesheet" href="/style.css">
+<link rel="icon" type="image/png" sizes="64x64" href="/img/cherry-64.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/cherry-32.png">
+<link rel="apple-touch-icon" href="/img/cherry-180.png">
+</head>
+<body>
+
+<!-- ───────────────────────────────────────────── home -->
+<img class="hero-art" src="/img/cherry-hero.webp" alt="" aria-hidden="true">
+<main id="home" class="view">
+  <header class="topbar">
+    <a class="brand" href="#" data-act="home" aria-label="Cherry — all sessions">
+      <img src="/img/cherry-mark.png" alt="" width="15" height="30">
+      <span>Cherry</span>
+      <small class="ver" id="ver"></small>
+    </a>
+    <nav>
+      <button class="btn icon quiet" data-act="theme" title="Switch light / dark" aria-label="Switch light or dark theme">
+        <svg class="ic" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.2"/><path d="M8 2.8v10.4" /><path d="M8 2.8a5.2 5.2 0 0 1 0 10.4z" fill="currentColor"/></svg>
+      </button>
+      <button class="btn quiet" data-act="settings">Services</button>
+    </nav>
+  </header>
+
+  <div class="home-wrap">
+    <section class="intro">
+      <div>
+        <h1>Pick the model.<br>Write the shot.<br><em>Keep every take.</em></h1>
+        <p class="lede">Prompts to stills to clips, through whichever service you like &mdash; kie.ai, fal.ai, Replicate, Google or OpenAI.</p>
+      </div>
+      <div class="intro-actions">
+        <span class="keystate" id="keystate"></span>
+        <button class="btn primary" data-act="new-session">New session</button>
+      </div>
+    </section>
+
+    <section id="update" class="update" hidden></section>
+    <section id="onboard" class="onboard" hidden></section>
+
+    <section class="sessions">
+      <div class="sessions-head">
+        <h2>Sessions</h2>
+        <input id="session-filter" class="filter" type="search" placeholder="Filter sessions" autocomplete="off">
+      </div>
+      <div id="session-grid" class="session-grid"></div>
+    </section>
+  </div>
+</main>
+
+<!-- ───────────────────────────────────────────── session -->
+<main id="session" class="view">
+  <header class="bar">
+    <button class="btn icon quiet" data-act="home" title="All sessions" aria-label="All sessions">
+      <svg class="ic" viewBox="0 0 16 16"><path d="M10 3 5 8l5 5"/></svg>
+    </button>
+    <h2 id="session-name" class="session-name" contenteditable="plaintext-only"
+        spellcheck="false" title="Click to rename"></h2>
+    <div class="tabs" role="tablist">
+      <button class="tab" data-tab="prompts" role="tab">Prompts <em id="count-prompts">0</em></button>
+      <button class="tab" data-tab="images" role="tab">Clips <em id="count-images">0</em></button>
+      <button class="tab" data-tab="videos" role="tab">Videos <em id="count-videos">0</em></button>
+    </div>
+    <div class="bar-right">
+      <span id="busy" class="busy" hidden><i class="spin"></i><span></span></span>
+      <button class="btn icon quiet" data-act="theme" title="Switch light / dark" aria-label="Switch light or dark theme">
+        <svg class="ic" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.2"/><path d="M8 2.8v10.4" /><path d="M8 2.8a5.2 5.2 0 0 1 0 10.4z" fill="currentColor"/></svg>
+      </button>
+      <button class="btn quiet" data-act="add-character">Add character</button>
+      <button class="btn quiet" data-act="json-help" id="json-help-btn">JSON help</button>
+      <button class="btn icon quiet" data-act="settings" title="Services and API keys" aria-label="Services and API keys">
+        <svg class="ic" viewBox="0 0 16 16"><path d="M2.5 5h11M2.5 11h11"/><circle cx="6" cy="5" r="1.7"/><circle cx="10.5" cy="11" r="1.7"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- prompts tab -->
+  <section id="tab-prompts" class="tab-panel">
+    <div class="toolbar">
+      <span class="chips" data-chip="image"></span>
+      <button class="btn" data-act="import">Import</button>
+      <!-- These are the session-wide image settings. They show what every
+           prompt is currently set to, and changing one stamps all of them. -->
+      <div class="allset" id="allset"></div>
+      <input class="filter cardfilter" type="search" data-filter
+             placeholder="Filter by name" autocomplete="off">
+      <span class="sp"></span>
+      <button class="btn" data-act="fold-all" id="fold-all">Minimise all</button>
+      <button class="btn primary" data-act="generate-all">Generate all</button>
+    </div>
+    <div id="cards" class="cards"></div>
+  </section>
+
+  <!-- images → video tab -->
+  <section id="tab-images" class="tab-panel">
+    <div class="toolbar">
+      <span class="chips" data-chip="video"></span>
+      <button class="btn" data-act="import-videos">Import</button>
+      <div class="allset" id="allsetv"></div>
+      <input class="filter cardfilter" type="search" data-filter
+             placeholder="Filter by name" autocomplete="off">
+      <span class="sp"></span>
+      <button class="btn" data-act="fold-all-v" id="fold-all-v">Minimise all</button>
+      <button class="btn" data-act="download-all">Download images</button>
+      <button class="btn" data-act="download-videos">Download clips</button>
+      <button class="btn primary" data-act="generate-all-videos">Generate all clips</button>
+    </div>
+    <div id="vcards" class="cards"></div>
+  </section>
+
+  <!-- videos tab: the finished clips, nothing to edit -->
+  <section id="tab-videos" class="tab-panel">
+    <div class="toolbar">
+      <span class="chips" data-chip="video"></span>
+      <div class="seg sm" id="clip-view">
+        <button data-takes="latest" class="on">Latest</button>
+        <button data-takes="all">Every take</button>
+      </div>
+      <input class="filter cardfilter" type="search" data-filter
+             placeholder="Filter by name" autocomplete="off">
+      <span class="sp"></span>
+      <span class="hint" id="clips-pending"></span>
+      <button class="btn primary" data-act="download-videos">Download all</button>
+    </div>
+    <div id="clips" class="gallery"></div>
+  </section>
+</main>
+
+<!-- ───────────────────────────────────────────── overlays -->
+<div id="modal-root"></div>
+<div id="toasts" class="toasts"></div>
+
+<script src="/prompts.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>

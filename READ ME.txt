@@ -1,0 +1,89 @@
+===============================================================================
+  CHERRY  -  prompts to images to video clips
+===============================================================================
+
+  TO START:  double-click  "Start Cherry"
+
+  A small black window opens and your browser opens on Cherry by itself.
+  (If the browser does not open, go to  http://127.0.0.1:8770/ )
+  Keep the black window open while you work - closing it stops Cherry.
+
+  First time only:
+
+    1. Windows may say "Windows protected your PC". Click  More info  then
+       Run anyway.  It does this once for files that came in a zip.
+
+    2. Cherry asks for an API key. Paste a key for the service you use
+       (kie.ai, fal.ai, Replicate, Google or OpenAI) and press Save.
+       Keys stay on this PC and are only sent to the service they belong to.
+
+    3. Want a proper Cherry icon on your Desktop?  Double-click
+       "Make desktop shortcut"  once.
+
+
+-------------------------------------------------------------------------------
+  WHAT IS IN THIS FOLDER
+-------------------------------------------------------------------------------
+
+    Start Cherry.bat            starts the app
+    Make desktop shortcut.bat   puts a Cherry icon on your Desktop (run once)
+    Output\                     your finished images and clips, one folder
+                                per session  (clips are in  videos\)
+    system\                     the program, your settings, sessions and keys.
+                                Nothing in here needs touching.
+
+
+-------------------------------------------------------------------------------
+  COMING FROM BANANA?
+-------------------------------------------------------------------------------
+
+  Cherry is the new Banana. To keep your old sessions and key, copy from your
+  old Banana folder into this one, with Cherry closed:
+
+    Banana\data\banana.db   ->   Cherry\system\data\      (make the folder)
+    Banana\out\*            ->   Cherry\Output\
+    Banana\characters\*     ->   Cherry\system\characters\
+    Banana\refs\*           ->   Cherry\system\refs\
+
+  Start Cherry and everything is there - the old database is picked up and
+  every picture is found in its new place by itself.
+
+
+-------------------------------------------------------------------------------
+  IF IT DOES NOT START
+-------------------------------------------------------------------------------
+
+  "Python was not found"
+      Cherry needs Python 3 (the same one Banana used). Install it once:
+      open PowerShell and run
+          winget install --id Python.Python.3.12 -e
+      then close PowerShell and double-click Start Cherry again.
+      Still failing? Windows key -> type "app execution aliases" -> turn OFF
+      python.exe and python3.exe.
+
+  "Could not start on port 8770" / it says it is already running
+      Cherry is already open. Look for its black window in the taskbar.
+
+  The page will not load
+      Wait a second and refresh. Check the black window is still open.
+
+  Windows asks about the firewall
+      You can say no. Cherry only talks to your own PC and the AI service.
+
+  Anything else
+      Send the text from the black window and what you clicked.
+
+
+-------------------------------------------------------------------------------
+  UPDATES
+-------------------------------------------------------------------------------
+
+  When there is a new version, the home screen says "Cherry 1.x is ready".
+  Click  Update now.  Cherry downloads it, restarts itself, and keeps all your
+  sessions, keys and Output exactly as they were.
+
+  (Coming from an older Cherry without that button? Close it, unzip this
+  version over the folder once, and from then on it updates itself.)
+
+  The full guide is  system\README.md .
+===============================================================================
