@@ -362,7 +362,7 @@ def dispatch_video(card_id, api_key=None):
     cs = db.clip_state(card, session)
     if cs["problem"]:
         raise KieError(cs["problem"])
-    mode = cs["mode"]
+    mode = cs["run_mode"]                  # refs with nothing attached runs as text
     fp = db.clip_fingerprint(card, cs)
     first_gen = ((cs["first"] or {}).get("gen")
                  if mode == "frames" or cs.get("first_as_ref") else None)

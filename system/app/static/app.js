@@ -151,10 +151,18 @@ function shortLabel(label, fam) {
   const l = label.replace(/^(Google|OpenAI)\s+/i, '');
   if (!l.toLowerCase().startsWith(fam.toLowerCase())) return label;
   const rest = l.slice(fam.length);
-  if (/^[.\d]/.test(rest)) return label;               // "FLUX.1 [dev]" stays whole
+  if (/^[.\d]/.test(rest) || /^\s*\(/.test(rest)) return label;   // "FLUX.1 [dev]", "Runway (Gen video)" stay whole
   const short = rest.replace(/^[\s\-]+/, '').replace(/^(image|video)\b\s*/i, '');
   // a bare version number reads better with its name: "Nano Banana 2", not "2"
   return short && !/^[\d.]+$/.test(short) ? short : label;
+}
+
+/* A model's note as a small badge ("retiring 22 Oct"), the full text on hover. */
+function noteBadge(note) {
+  if (!note) return '';
+  const when = (note.match(/(\d{1,2} [A-Z][a-z]{2})/) || [])[1];
+  const label = /retir/i.test(note) ? 'retiring' + (when ? ' ' + when : '') : 'note';
+  return `<span class="mnote" title="${esc(note)}">${esc(label)}</span>`;
 }
 
 /* Short facts for the model menu: how long, how sharp, whether it takes
@@ -169,8 +177,9 @@ function modelTags(m, kind) {
   if (kind === 'image' && m.refs) tags.push(m.mode === 'edit' ? 'needs image' : 'refs');
   if (kind === 'video') {
     const md = m.modes || {};
+    if (md.refs) tags.push('refs' + (md.refs.videos || md.refs.audio
+      ? ' ' + ['img', md.refs.videos && 'vid', md.refs.audio && 'aud'].filter(Boolean).join('/') : ''));
     if (md.frames) tags.push(md.frames.last ? 'first+last' : 'first frame');
-    if (md.refs) tags.push('refs' + (md.refs.videos ? ' +video' : '') + (md.refs.audio ? ' +audio' : ''));
     if (md.text) tags.push('text');
   }
   return tags;
@@ -272,11 +281,12 @@ function openModelMenu(anchor, { kind, current, session, onPick, onCancel, title
       });
       return `<section class="mcol">
         <header>${badge(pid, 20)}<b>${esc(p.label)}</b><span class="n">${items.length}</span></header>
-        <div class="mfams">${[...fams].map(([f, list]) => `
+        <div class="mfams${kind === 'video' ? ' wide' : ''}">${[...fams].map(([f, list]) => `
           <div class="mfam"><h5>${esc(f)}</h5>${list.map((m) => {
             const v = pid + '|' + m.id;
-            return `<button class="mitem${v === curKey ? ' on' : ''}" data-v="${esc(v)}" title="${esc(m.label)} · ${esc(m.id)}${m.note ? ' — ' + esc(m.note) : ''}">
-              ${v === curKey ? '<svg class="ic mcheck" viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-7"/></svg>' : ''}<span class="mname">${esc(shortLabel(m.label, f))}${m.note ? '<small>' + esc(m.note) + '</small>' : ''}</span>
+            const two = kind === 'video';
+            return `<button class="mitem${two ? ' two' : ''}${v === curKey ? ' on' : ''}" data-v="${esc(v)}" title="${esc(m.label)} · ${esc(m.id)}${m.note ? ' — ' + esc(m.note) : ''}">
+              <span class="mline">${v === curKey ? '<svg class="ic mcheck" viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-7"/></svg>' : ''}<span class="mname">${esc(shortLabel(m.label, f))}</span>${noteBadge(m.note)}</span>
               <span class="mtags">${modelTags(m, kind).map((t) => `<i>${esc(t)}</i>`).join('')}</span></button>`;
           }).join('')}</div>`).join('')}</div></section>`;
     }).join('') || `<div class="mempty">Nothing matches “${esc(input.value.trim())}”.</div>`;
@@ -540,14 +550,14 @@ async function checkUpdate(force = false) {
   try {
     const u = await api('/api/update' + (force ? '?force=1' : ''));
     S.update = u;
-    const box = $('#update');
     $('#ver').textContent = u.current ? 'v' + u.current : '';
-    $('[data-act="check-update"]')?.classList.toggle('has-new', !!(u.newer && !u.dev));
-    if (!u.newer || u.dev) { box.hidden = true; return u; }
-    box.hidden = false;
-    box.innerHTML = `<div><b>Cherry ${esc(u.latest)} is out</b>
-        <span>You have ${esc(u.current)}. See what's new and update in one click.</span></div>
-      <button class="btn primary" data-act="check-update">See update</button>`;
+    // No banner: the button itself says so - a red dot and a soft twitch.
+    const btn = $('[data-act="check-update"]');
+    if (btn) {
+      const news = !!(u.newer && !u.dev);
+      btn.classList.toggle('has-new', news);
+      btn.title = news ? 'Cherry ' + u.latest + ' is out — click to see what\'s new' : 'Check for a new version of Cherry';
+    }
     return u;
   } catch { return null; }
 }
@@ -1270,31 +1280,43 @@ function mediaThumb(r) {
   return `<img src="${refSrc(r)}" alt="" loading="lazy" onerror="this.parentNode.classList.add('noimg');this.remove()">`;
 }
 
+function refRow(c, kind, caps, pre) {
+  const list = c.vref_media[kind] || [];
+  const used = list.length + pre;
+  const chips = [];
+  if (pre) {
+    const f = c.first;
+    const tok = refToken(c, kind, 1);
+    chips.push(`<div class="rthumb fixed${f.missing ? ' waiting' : ''}" title="${esc(f.label)} — sent as the first reference">
+      ${f.thumb && !f.missing ? `<img src="${fileUrl(f.thumb)}" alt="">` : `<span class="aud"><em>${isShot(c) ? 'image not made yet' : 'missing'}</em></span>`}
+      ${tok ? `<span class="tok">${esc(tok)}</span>` : ''}
+      <button class="x" data-act="clear-frame" data-which="first" data-card="${c.id}" title="Don't send this picture">✕</button></div>`);
+  }
+  list.forEach((r, i) => {
+    const tok = refToken(c, kind, i + 1 + pre);
+    chips.push(`<div class="rthumb m-${MEDIA_ONE[kind]}" data-act="${tok ? 'insert-token' : 'preview-ref'}" data-token="${esc(tok)}"
+        data-ref="${r.id}" data-card="${c.id}" title="${esc(r.name)}${tok ? ' — click to put ' + esc(tok) + ' in the prompt' : ''}">
+      ${mediaThumb(r)}${tok ? `<span class="tok">${esc(tok)}</span>` : ''}
+      <button class="x" data-act="unvref" data-card="${c.id}" data-ref="${r.id}" title="Remove">✕</button></div>`);
+  });
+  // A shot whose own picture was taken off can have it back in one click.
+  const selfBack = kind === 'images' && isShot(c) && !pre && c.first_src === 'none'
+    ? `<button class="refadd self" data-act="use-self" data-card="${c.id}" title="Use this shot's own image again">${ic('plus')}<small>shot image</small></button>` : '';
+  return `<div class="mrow"><div class="mhead">${MEDIA_LABEL[kind]}<span class="cnt${used > caps[kind] ? ' over' : ''}">${used} / ${caps[kind]}</span></div>
+    <div class="refs">${chips.join('')}${selfBack}${used < caps[kind] ? `<button class="refadd" data-act="pick-media" data-media="${kind}" data-card="${c.id}" title="Add ${MEDIA_LABEL[kind].toLowerCase()}">+</button>` : ''}</div></div>`;
+}
+
 function refsBlock(c) {
   const caps = clipModeCaps(c);
+  const pre = c.first_as_ref && c.first ? 1 : 0;
   const rows = [];
-  for (const kind of ['images', 'videos', 'audio']) {
-    if (!caps[kind]) continue;
-    const list = c.vref_media[kind] || [];
-    const pre = kind === 'images' && c.first_as_ref && c.first ? 1 : 0;
-    const used = list.length + pre;
-    const chips = [];
-    if (pre) {
-      chips.push(`<div class="rthumb fixed" title="${esc(c.first.label)} — sent as the first reference">
-        ${c.first.thumb && !c.first.missing ? `<img src="${fileUrl(c.first.thumb)}" alt="">` : ''}
-        ${refToken(c, kind, 1) ? `<span class="tok">${esc(refToken(c, kind, 1))}</span>` : ''}</div>`);
-    }
-    list.forEach((r, i) => {
-      const tok = refToken(c, kind, i + 1 + pre);
-      chips.push(`<div class="rthumb m-${MEDIA_ONE[kind]}" data-act="${tok ? 'insert-token' : 'preview-ref'}" data-token="${esc(tok)}"
-          data-ref="${r.id}" data-card="${c.id}" title="${esc(r.name)}${tok ? ' — click to put ' + esc(tok) + ' in the prompt' : ''}">
-        ${mediaThumb(r)}${tok ? `<span class="tok">${esc(tok)}</span>` : ''}
-        <button class="x" data-act="unvref" data-card="${c.id}" data-ref="${r.id}" title="Remove">✕</button></div>`);
-    });
-    rows.push(`<div class="mrow"><div class="mhead">${MEDIA_LABEL[kind]}<span class="cnt${used > caps[kind] ? ' over' : ''}">${used} / ${caps[kind]}</span></div>
-      <div class="refs">${chips.join('')}${used < caps[kind] ? `<button class="refadd" data-act="pick-media" data-media="${kind}" data-card="${c.id}" title="Add ${MEDIA_LABEL[kind].toLowerCase()}">+</button>` : ''}</div></div>`);
-  }
-  return `<div class="mrows">${rows.join('')}</div>`;
+  if (caps.images) rows.push(refRow(c, 'images', caps, pre));
+  // Mostly one video and one sound per clip: they share a row.
+  const pair = ['videos', 'audio'].filter((k) => caps[k]).map((k) => refRow(c, k, caps, 0));
+  if (pair.length) rows.push(`<div class="mpair${pair.length === 1 ? ' one' : ''}">${pair.join('')}</div>`);
+  const note = c.clip_run_mode === 'text' && c.clip_mode === 'refs'
+    ? '<div class="textnote slim">No references yet — this runs from the prompt alone.</div>' : '';
+  return `<div class="mrows">${rows.join('')}</div>${note}`;
 }
 
 function videoCardHtml(c, isFirst, isLast) {
@@ -2513,6 +2535,11 @@ document.addEventListener('click', async (e) => {
         case 'pick-vrefs':    e.stopPropagation(); return openRefPicker(cardId, 'video', 'images');
         case 'pick-media':    e.stopPropagation(); return openRefPicker(cardId, 'video', el.dataset.media);
         case 'pick-frame':    e.stopPropagation(); return openFramePicker(cardId, el.dataset.which);
+        case 'use-self':
+          e.stopPropagation();
+          await flushSaves();
+          await api('/api/card/' + cardId, { first_src: null });
+          return loadSession(S.session.id, { quiet: true });
         case 'clear-frame':
           e.stopPropagation();
           await flushSaves();

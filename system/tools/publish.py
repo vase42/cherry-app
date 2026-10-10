@@ -1,7 +1,11 @@
 """Publish a new Cherry: test, version, commit, tag, push, release.
 
-    python3 system/tools/publish.py 1.2.0 "Clips can start from any shot's image"
-    python3 system/tools/publish.py 1.2.0 -F notes.md
+    python3 system/tools/publish.py "Clips can start from any shot's image"
+    python3 system/tools/publish.py -F notes.md
+    python3 system/tools/publish.py 2.0 "the big one"        # only when you say so
+
+Versions go v1.2, v1.3, v1.4 ... - with no number given, the next one is
+picked for you. Give a number only to jump (e.g. to 2.0).
 
 Everyone running Cherry sees "Cherry 1.2.0 is ready" on the home screen and
 updates with one click. Needs git and the GitHub CLI (gh), logged in.
@@ -26,17 +30,30 @@ def run(*cmd, check=True, capture=False):
     return r
 
 
+def next_version():
+    """1.1.2 -> 1.2, 1.2 -> 1.3: the middle number goes up, nothing else."""
+    try:
+        cur = open(os.path.join(SYSTEM, "VERSION"), encoding="utf-8").read().strip()
+    except OSError:
+        cur = "1.0"
+    parts = [int(p) for p in cur.split(".") if p.isdigit()] + [0, 0]
+    return str(parts[0]) + "." + str(parts[1] + 1)
+
+
 def main():
     args = sys.argv[1:]
-    if not args or args[0].startswith("-"):
+    if args and args[0] in ("-h", "--help"):
         sys.exit(__doc__)
-    version = args[0].lstrip("vV")
+    if args and args[0].replace(".", "").isdigit():
+        version = args.pop(0)
+    else:
+        version = next_version()
     if "-F" in args:
         notes = open(args[args.index("-F") + 1], encoding="utf-8").read()
     else:
-        notes = " ".join(a for a in args[1:]) or "Cherry " + version
-    if not all(p.isdigit() for p in version.split(".")) or version.count(".") != 2:
-        sys.exit("version must look like 1.2.0")
+        notes = " ".join(args) or "Cherry " + version
+    if not all(p.isdigit() for p in version.split(".")) or not 1 <= version.count(".") <= 2:
+        sys.exit("version must look like 1.3 (or 2.0)")
     tag = "v" + version
     if run("git", "tag", "-l", tag, capture=True).stdout.strip():
         sys.exit(tag + " already exists - pick the next number")

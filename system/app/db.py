@@ -1103,17 +1103,12 @@ def clip_state(card, session=None, gens=None, vrefs=None):
     media = refs_by_media(vrefs)
     n_refs = sum(len(v) for v in media.values())
     explicit_first = bool(card.get("first_src")) and card["first_src"] not in ("none", "self")
-    # A configured first frame (even one still waiting for its image) means
-    # frames: a shot whose picture is not made yet waits for it rather than
-    # quietly turning into a text-only clip.
     mode = providers.pick_mode(spec, card.get("video_mode"), first is not None, n_refs > 0)
-    # A model with references but no frame fields (Gemini Omni Video) still
-    # gets the shot's picture: it goes in as the first reference, which is how
-    # the app has always driven that model.
-    first_as_ref = (not card.get("video_mode") and first is not None
-                    and "frames" not in modes and "refs" in modes)
-    if first_as_ref:
-        mode = "refs"
+    # In reference mode the clip's own picture - a shot's generated image, or a
+    # chosen first frame - goes in as the first reference, so a shot's image
+    # is attached the moment it exists. Clearing the first frame drops it.
+    first_as_ref = mode == "refs" and first is not None
+    run_mode = mode
     v = providers.mode_variant(spec, mode, bool(last and not last["missing"])) if mode else None
     problem, hidden = None, 0
     if not mode:
@@ -1131,7 +1126,11 @@ def clip_state(card, session=None, gens=None, vrefs=None):
         if first_as_ref and first["missing"]:
             problem = first["label"]
         elif not n_refs and not first_as_ref:
-            problem = "Add at least one reference"
+            # Nothing to refer to yet: it runs from the prompt alone.
+            if "text" in modes:
+                run_mode = "text"
+            else:
+                problem = "Add at least one reference"
         for kind, items in media.items():
             n = len(items) + (1 if first_as_ref and kind == "images" else 0)
             if not n:
@@ -1144,13 +1143,15 @@ def clip_state(card, session=None, gens=None, vrefs=None):
                            + str(cap["max"]) + ")")
     if mode != "refs":
         hidden += n_refs
-    if mode != "frames" and not first_as_ref:
+    if mode == "text":
         hidden += int(explicit_first) + int(bool(last))
-    elif first_as_ref:
+    elif mode == "refs":
         hidden += int(bool(last))
-    return {"spec": spec, "mode": mode, "modes": list(modes), "first": first, "last": last,
-            "media": media, "problem": problem, "hidden": hidden, "variant": v,
-            "first_as_ref": first_as_ref}
+    if run_mode != mode:
+        v = providers.mode_variant(spec, run_mode)
+    return {"spec": spec, "mode": mode, "run_mode": run_mode, "modes": list(modes),
+            "first": first, "last": last, "media": media, "problem": problem,
+            "hidden": hidden, "variant": v, "first_as_ref": first_as_ref}
 
 
 def video_fingerprint(card, image_gen, refs, base=None):
@@ -1184,10 +1185,10 @@ def clip_fingerprint(card, cs):
         "d": str(card.get("video_duration") or ""),
         "r": card.get("video_resolution") or "",
         "a": card.get("video_aspect") or "",
-        "mode": cs["mode"],
+        "mode": cs.get("run_mode", cs["mode"]),
         "f": frame_identity(cs["first"]) if cs["mode"] == "frames" else None,
         "l": frame_identity(cs["last"]) if cs["mode"] == "frames" else None,
-        "i": {k: ref_identity(v) for k, v in cs["media"].items()} if cs["mode"] == "refs" else None,
+        "i": {k: ref_identity(v) for k, v in cs["media"].items()} if cs.get("run_mode") == "refs" else None,
         "fr": frame_identity(cs["first"]) if cs.get("first_as_ref") else None,
     }, sort_keys=True)
     return hashlib.sha256(blob.encode("utf-8")).hexdigest()[:16]
@@ -1244,6 +1245,7 @@ def session_view(session_id):
         card["clip_problem"] = cs["problem"]
         card["clip_hidden"] = cs["hidden"]
         card["first_as_ref"] = cs["first_as_ref"]
+        card["clip_run_mode"] = cs["run_mode"]
         card["video_fingerprint"] = clip_fingerprint(card, cs)
         card["can_clip"] = cs["problem"] is None
         vlatest = vgens[0] if vgens else None

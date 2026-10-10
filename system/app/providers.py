@@ -469,15 +469,16 @@ def video_modes(spec):
 
 
 def pick_mode(spec, wanted, has_first=False, has_refs=False):
-    """The mode a clip will really run in: the one asked for if the model has
-    it, otherwise the one its inputs point at, otherwise whatever it has."""
+    """The mode a clip runs in: the one asked for if the model has it;
+    otherwise references (the default whenever the model has them), then
+    frames when a first frame is set, then text."""
     modes = video_modes(spec)
     if wanted in modes:
         return wanted
+    if "refs" in modes:
+        return "refs"
     if has_first and "frames" in modes:
         return "frames"
-    if has_refs and "refs" in modes:
-        return "refs"
     for m in ("text", "frames", "refs"):
         if m in modes:
             return m

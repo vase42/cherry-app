@@ -1502,9 +1502,10 @@ order = [(c["kind"], c["id"]) for c in db.get_cards(cs_id)]
 check("a standalone clip sits where it was inserted", order == [("shot", sh1), ("clip", clip), ("shot", sh2)], order)
 check("it is named Clip N", db.get_card(clip)["title"] == "Clip 2")
 v = {c["id"]: c for c in db.session_view(cs_id)["cards"]}
-check("a standalone clip with no frame runs text only", v[clip]["clip_mode"] == "text")
+check("a clip opens on references by default", v[clip]["clip_mode"] == "refs")
+check("with nothing attached it runs from the prompt alone", v[clip]["clip_run_mode"] == "text")
 check("and is ready", v[clip]["can_clip"] is True, v[clip]["clip_problem"])
-check("a shot's clip waits for its image", v[sh1]["clip_mode"] == "frames"
+check("a shot's clip waits for its image to use as a reference", v[sh1]["clip_mode"] == "refs"
       and v[sh1]["clip_problem"] == "This shot has no image yet", v[sh1]["clip_problem"])
 status, r = http("POST", "/api/card/" + str(sh1) + "/generate_video", {})
 check("a shot clip without its image is refused before anything is claimed",
@@ -1532,10 +1533,23 @@ kie.poller.tick()
 http("POST", "/api/card/" + str(sh1) + "/generate", {})
 http("POST", "/api/card/" + str(sh2) + "/generate", {})
 kie.poller.tick()
+v = {c["id"]: c for c in db.session_view(cs_id)["cards"]}
+check("a generated image is attached to its shot's clip as the first reference",
+      v[sh1]["first_as_ref"] is True and v[sh1]["can_clip"] is True, v[sh1]["clip_problem"])
+http("POST", "/api/card/" + str(sh1), {"video_prompt": "the beam sweeps"})
+http("POST", "/api/card/" + str(sh1) + "/generate_video", {})
+sent = stub.created[-1]["input"]
+check("and is sent as @Image1", (sent.get("reference_image_urls") or [""])[0].startswith("https://stub.invalid/up/"), sent)
+kie.poller.tick()
+http("POST", "/api/card/" + str(sh1), {"first_src": "none"})
+v = {c["id"]: c for c in db.session_view(cs_id)["cards"]}
+check("removing it leaves the clip without it", v[sh1]["first_as_ref"] is False)
+http("POST", "/api/card/" + str(sh1), {"first_src": None})
 http("POST", "/api/card/" + str(clip), {"video_provider": "kie", "video_model": "bytedance/seedance-2-5",
+                                        "video_mode": "frames",
                                         "first_src": "card:" + str(sh1), "last_src": "card:" + str(sh2)})
 v = {c["id"]: c for c in db.session_view(cs_id)["cards"]}
-check("a chosen first frame flips the clip to frames", v[clip]["clip_mode"] == "frames")
+check("frames mode uses the chosen first frame", v[clip]["clip_mode"] == "frames")
 check("the first frame names its shot", v[clip]["first"]["label"].startswith("1. "), v[clip]["first"])
 http("POST", "/api/card/" + str(clip) + "/generate_video", {})
 sent = stub.created[-1]["input"]
@@ -1588,10 +1602,13 @@ http("POST", "/api/card/" + str(clip) + "/video_refs", {"ref_ids": [rr["ref_id"]
 v = {c["id"]: c for c in db.session_view(cs_id)["cards"]}
 check("reference mode is used when chosen", v[clip]["clip_mode"] == "refs")
 check("references are grouped by kind", [len(v[clip]["vref_media"][k]) for k in ("images", "videos", "audio")] == [1, 1, 1])
-check("the frames are kept but hidden", v[clip]["clip_hidden"] == 2, v[clip]["clip_hidden"])
+check("the first frame becomes a reference, the last frame is kept but hidden",
+      v[clip]["first_as_ref"] is True and v[clip]["clip_hidden"] == 1, v[clip]["clip_hidden"])
 http("POST", "/api/card/" + str(clip) + "/generate_video", {})
 sent = stub.created[-1]["input"]
-check("Seedance gets reference_image_urls", sent.get("reference_image_urls") == ["https://example.com/hero.png"], sent)
+check("Seedance gets the clip's picture then the reference image",
+      len(sent.get("reference_image_urls") or []) == 2
+      and sent["reference_image_urls"][1] == "https://example.com/hero.png", sent)
 check("the video went through the stream upload", sent.get("reference_video_urls", [""])[0].startswith("https://stub.invalid/stream/"))
 check("and the sound too", sent.get("reference_audio_urls", [""])[0].startswith("https://stub.invalid/stream/"))
 check("reference mode sends no frames", "first_frame_url" not in sent and "last_frame_url" not in sent)
