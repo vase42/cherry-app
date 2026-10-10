@@ -1049,7 +1049,7 @@ kbd {
 .upd-steps li.now::before { border-color: var(--accent); background: var(--accent); }
 .upd-steps li.done { color: var(--muted); }
 .upd-steps li.done::before { border-color: var(--ok); background: var(--ok); }
-.upd-btn { gap: 6px; }
+.upd-btn { gap: 6px; white-space: nowrap; }
 .upd-btn.has-new { color: var(--accent); }
 .upd-btn.has-new::after { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
 
